@@ -35,20 +35,21 @@ jobs:
       - name: build
         run: ./gradlew build
 
-      - name: upload fabric artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: fabric
-          path: |
-            fabric/build/libs/*.jar
-            !**/*shadow*
-            !**/*sources*
-
-      - name: upload forge artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: forge
-          path: |
-            forge/build/libs/*.jar
-            !**/*shadow*
-            !**/*sources*
+# Uncomment these lines to upload jars to github artifacts:
+#      - name: upload fabric artifact
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: fabric
+#          path: |
+#            fabric/build/libs/*.jar
+#            !**/*shadow*
+#            !**/*sources*
+#
+#      - name: upload forge artifact
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: forge
+#          path: |
+#            forge/build/libs/*.jar
+#            !**/*shadow*
+#            !**/*sources*
