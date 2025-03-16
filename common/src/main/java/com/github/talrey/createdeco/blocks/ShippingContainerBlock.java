@@ -88,8 +88,11 @@ public class ShippingContainerBlock extends ItemVaultBlock {
 
     @Override
     public Entity getControllerBE () {
-      BlockEntity be = super.getControllerBE();
-      if (be instanceof Entity container) return container;
+      if (isController())
+        return this;
+      BlockEntity blockEntity = level.getBlockEntity(controller);
+      if (blockEntity instanceof Entity entity)
+        return entity;
       return null;
     }
 
@@ -116,8 +119,12 @@ public class ShippingContainerBlock extends ItemVaultBlock {
     public void removeController (boolean keepContents) {
       super.removeController(keepContents);
       BlockState state = getBlockState();
-      state = state.setValue(ItemVaultBlock.LARGE, false);
-      getLevel().setBlock(worldPosition, state, 22);
+      if (ItemVaultBlock.isVault(state)) {
+        state = state.setValue(ItemVaultBlock.LARGE, false);
+        getLevel().setBlock(worldPosition, state, 22);
+        setChanged();
+        sendData();
+      }
     }
   }
 }

@@ -6,6 +6,7 @@
   "client": [
   ],
   "mixins": [
+    "ItemVaultBlockEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
