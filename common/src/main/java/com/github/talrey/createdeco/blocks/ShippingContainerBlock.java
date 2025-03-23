@@ -117,14 +117,12 @@ public class ShippingContainerBlock extends ItemVaultBlock {
 
     @Override
     public void removeController (boolean keepContents) {
-      super.removeController(keepContents);
       BlockState state = getBlockState();
-      if (ItemVaultBlock.isVault(state)) {
+      if (ShippingContainerBlock.isVault(state)) {
         state = state.setValue(ItemVaultBlock.LARGE, false);
         getLevel().setBlock(worldPosition, state, 22);
-        setChanged();
-        sendData();
       }
+      super.removeController(keepContents);
     }
   }
 }
