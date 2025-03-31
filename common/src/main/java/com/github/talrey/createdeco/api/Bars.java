@@ -49,7 +49,8 @@ public class Bars {
 
     var block = reg.block(base + suf, IronBarsBlock::new)
             .properties(props -> props.noOcclusion().strength(5, 6)
-                    .sound(SoundType.NETHERITE_BLOCK))
+              .requiresCorrectToolForDrops()
+              .sound(SoundType.NETHERITE_BLOCK))
             .blockstate((ctx, prov)-> BlockStateGenerator.bar(base, suf, bartex, postex, ctx, prov))
             .addLayer(()-> RenderType::cutoutMipped)
             .tag(BlockTags.MINEABLE_WITH_PICKAXE)
