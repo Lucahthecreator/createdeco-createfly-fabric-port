@@ -232,18 +232,18 @@ public class BlockStateGenerator {
             CreateRegistrate reg, String metal,
             DataGenContext<Block, ?> ctx, RegistrateBlockstateProvider prov
     ) {
-        throw new AssertionError();
+//        throw new AssertionError();
     }
 
     public static void decal(CreateRegistrate reg, String prefix, DataGenContext<Block, DecalBlock> ctx, RegistrateBlockstateProvider prov) {
-        throw new AssertionError();
+//        throw new AssertionError();
     }
 
     public static void brickWallItem(DataGenContext<Item, BlockItem> ctx, RegistrateItemModelProvider prov, String color) {
-        throw new AssertionError();
+//        throw new AssertionError();
     }
 
     public static void sheetMetal(String metal, DataGenContext<Block, ConnectedPillarBlock> ctx, RegistrateBlockstateProvider prov) {
-        throw new AssertionError();
+//        throw new AssertionError();
     }
 }

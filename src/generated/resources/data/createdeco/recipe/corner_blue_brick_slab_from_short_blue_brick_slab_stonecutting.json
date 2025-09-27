@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "createdeco:short_blue_brick_slab"
+  },
+  "result": {
+    "count": 1,
+    "id": "createdeco:corner_blue_brick_slab"
+  }
+}

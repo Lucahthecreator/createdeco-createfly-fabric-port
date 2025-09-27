@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:white_dye"
+    },
+    {
+      "item": "create:item_vault"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "createdeco:white_shipping_container"
+  }
+}
