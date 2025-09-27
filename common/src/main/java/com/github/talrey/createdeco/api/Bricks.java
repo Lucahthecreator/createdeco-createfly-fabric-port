@@ -260,10 +260,10 @@ public class Bricks {
     String original = color + "_bricks";
     DyeColor dye = BlockRegistry.fromName(color);
     ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, ctx.get())
-      .requires(DataIngredient.items( (dye == null)
+      .requires((dye == null)
         ? Blocks.BRICKS
         : BlockRegistry.BRICKS.get(dye).get(original)
-      ))
+      )
       .requires(Blocks.VINE)
       .unlockedBy("hasitem", InventoryChangeTrigger.TriggerInstance.hasItems(
         (dye == null)
@@ -273,10 +273,10 @@ public class Bricks {
       .save(prov, ctx.getName() + "_from_vine");
 
     ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, ctx.get())
-        .requires(DataIngredient.items( (dye == null)
+        .requires((dye == null)
             ? Blocks.BRICKS
             : BlockRegistry.BRICKS.get(dye).get(original)
-        ))
+        )
         .requires(Blocks.MOSS_BLOCK)
         .unlockedBy("hasitem", InventoryChangeTrigger.TriggerInstance.hasItems(
             (dye == null)

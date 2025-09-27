@@ -28,14 +28,14 @@ import java.util.function.Supplier;
 
 public class CageLamps {
 
-  public static final ResourceLocation YELLOW_ON  = new ResourceLocation(CreateDecoMod.MOD_ID, "block/palettes/cage_lamp/light_default");
-  public static final ResourceLocation YELLOW_OFF = new ResourceLocation(CreateDecoMod.MOD_ID, "block/palettes/cage_lamp/light_default_off");
-  public static final ResourceLocation RED_ON     = new ResourceLocation(CreateDecoMod.MOD_ID, "block/palettes/cage_lamp/light_redstone");
-  public static final ResourceLocation RED_OFF    = new ResourceLocation(CreateDecoMod.MOD_ID, "block/palettes/cage_lamp/light_redstone_off");
-  public static final ResourceLocation GREEN_ON   = new ResourceLocation(CreateDecoMod.MOD_ID, "block/palettes/cage_lamp/light_green");
-  public static final ResourceLocation GREEN_OFF  = new ResourceLocation(CreateDecoMod.MOD_ID, "block/palettes/cage_lamp/light_green_off");
-  public static final ResourceLocation BLUE_ON    = new ResourceLocation(CreateDecoMod.MOD_ID, "block/palettes/cage_lamp/light_soul");
-  public static final ResourceLocation BLUE_OFF   = new ResourceLocation(CreateDecoMod.MOD_ID, "block/palettes/cage_lamp/light_soul_off");
+  public static final ResourceLocation YELLOW_ON  = CreateDecoMod.id( "block/palettes/cage_lamp/light_default");
+  public static final ResourceLocation YELLOW_OFF = CreateDecoMod.id( "block/palettes/cage_lamp/light_default_off");
+  public static final ResourceLocation RED_ON     = CreateDecoMod.id( "block/palettes/cage_lamp/light_redstone");
+  public static final ResourceLocation RED_OFF    = CreateDecoMod.id( "block/palettes/cage_lamp/light_redstone_off");
+  public static final ResourceLocation GREEN_ON   = CreateDecoMod.id( "block/palettes/cage_lamp/light_green");
+  public static final ResourceLocation GREEN_OFF  = CreateDecoMod.id( "block/palettes/cage_lamp/light_green_off");
+  public static final ResourceLocation BLUE_ON    = CreateDecoMod.id( "block/palettes/cage_lamp/light_soul");
+  public static final ResourceLocation BLUE_OFF   = CreateDecoMod.id( "block/palettes/cage_lamp/light_soul_off");
 
   private static ShapedRecipeBuilder cageLampRecipeBuilder (
     ItemLike item, Supplier<Item> light

@@ -154,7 +154,7 @@ public class BlockRegistry {
 
 
 	private static void registerCageLamps (String metal, Function<String, Item> getter) {
-		ResourceLocation cage = new ResourceLocation(CreateDecoMod.MOD_ID,
+		ResourceLocation cage = CreateDecoMod.id(
 				"block/palettes/cage_lamp/"
 						+ metal.toLowerCase(Locale.ROOT).replaceAll(" ", "_") + "_lamp"
 		);
@@ -353,9 +353,9 @@ public class BlockRegistry {
 	private static void registerCoins (String metal, Function<String, Item> getter) {
 		if (metal.equals("Andesite")) return;
 		String regName = metal.toLowerCase(Locale.ROOT).replaceAll(" ", "_");
-		ResourceLocation side   = new ResourceLocation(CreateDecoMod.MOD_ID, "block/" + regName + "_coinstack_side");
-		ResourceLocation top    = new ResourceLocation(CreateDecoMod.MOD_ID, "block/" + regName + "_coinstack_top");
-		ResourceLocation bottom = new ResourceLocation(CreateDecoMod.MOD_ID, "block/" + regName + "_coinstack_bottom");
+		ResourceLocation side   = CreateDecoMod.id("block/" + regName + "_coinstack_side");
+		ResourceLocation top    = CreateDecoMod.id("block/" + regName + "_coinstack_top");
+		ResourceLocation bottom = CreateDecoMod.id("block/" + regName + "_coinstack_bottom");
 
 		COIN_BLOCKS.put(metal, Coins.buildCoinStackBlock(
 				CreateDecoMod.REGISTRATE,

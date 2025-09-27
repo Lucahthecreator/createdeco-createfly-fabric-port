@@ -6,14 +6,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.neoforged.neoforge.capabilities.BlockCapability;
+import net.neoforged.neoforge.capabilities.Capabilities;
 
 public class LoaderUtilImpl {
   public static int getSignal (IBE<?> be, BlockState pState, Level pLevel, BlockPos pPos) {
     return be.getBlockEntityOptional(pLevel, pPos).map((vte) ->
-      vte.getCapability(ForgeCapabilities.ITEM_HANDLER)
-    ).map((lo) ->
-      lo.map(ItemHelper::calcRedstoneFromInventory).orElse(0)
+                    pLevel.getCapability(Capabilities.ItemHandler.BLOCK, pPos, pState, vte, null)
+    ).map(ItemHelper::calcRedstoneFromInventory
     ).orElse(0);
   }
 

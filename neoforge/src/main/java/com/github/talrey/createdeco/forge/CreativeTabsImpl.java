@@ -8,9 +8,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
@@ -18,13 +17,13 @@ public class CreativeTabsImpl {
   private static final DeferredRegister<CreativeModeTab> TABS =
     DeferredRegister.create(Registries.CREATIVE_MODE_TAB, CreateDecoMod.MOD_ID);
 
-  private static final RegistryObject<CreativeModeTab> PROPS = TABS.register(
+  private static final Supplier<CreativeModeTab> PROPS = TABS.register(
     CreativeTabs.PROPS_KEY, ()->group(
       CreativeTabs.PROPS_KEY, ()-> BlockRegistry.GREEN_CAGE_LAMPS.get("Brass").asStack()
     )
   );
 
-  private static final RegistryObject<CreativeModeTab> BRICKS = TABS.register(
+  private static final Supplier<CreativeModeTab> BRICKS = TABS.register(
     CreativeTabs.BRICKS_KEY, ()->group(
       CreativeTabs.BRICKS_KEY, ()-> BlockRegistry.BRICKS.get(
         DyeColor.LIGHT_BLUE

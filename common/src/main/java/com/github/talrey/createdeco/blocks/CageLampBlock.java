@@ -1,5 +1,6 @@
 package com.github.talrey.createdeco.blocks;
 
+import com.mojang.serialization.MapCodec;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
 import net.minecraft.core.BlockPos;
@@ -24,9 +25,8 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
-
-import javax.annotation.Nullable;
 
 public class CageLampBlock extends DirectionalBlock implements ProperWaterloggedBlock, IWrenchable {
   public final DustParticleOptions particle;
@@ -122,7 +122,7 @@ public class CageLampBlock extends DirectionalBlock implements ProperWaterlogged
   }
 
   @Override
-  public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+  protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player entity, BlockHitResult hitResult) {
     BlockState next = this.toggle(state.cycle(BlockStateProperties.INVERTED), level, pos);
     if (level.isClientSide) {
       return InteractionResult.SUCCESS;
@@ -159,4 +159,9 @@ public class CageLampBlock extends DirectionalBlock implements ProperWaterlogged
       WATERLOGGED
     );
   }
+
+    @Override
+    protected MapCodec<? extends DirectionalBlock> codec() {
+        return null;
+    }
 }

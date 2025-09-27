@@ -9,6 +9,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -17,8 +18,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class CoinStackBlock extends Block implements ProperWaterloggedBlock {
   public final String material;
@@ -100,7 +100,7 @@ public class CoinStackBlock extends Block implements ProperWaterloggedBlock {
   }
 
   @Override
-  public ItemStack getCloneItemStack (BlockGetter level, BlockPos pos, BlockState state) {
+  public ItemStack getCloneItemStack (LevelReader level, BlockPos pos, BlockState state) {
     return ItemRegistry.COINSTACKS.containsKey(material)
       ? ItemRegistry.COINSTACKS.get(material).asStack()
       : new ItemStack(Items.AIR);

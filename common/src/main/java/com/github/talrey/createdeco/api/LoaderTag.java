@@ -30,9 +30,9 @@ public class LoaderTag<T> {
                                            String common, String forge, String fabric
   ) {
     return new LoaderTag<>(registry,
-      new ResourceLocation(CreateDecoMod.MOD_ID, "internal/" + common),
-      new ResourceLocation("forge", forge),
-      new ResourceLocation("c", fabric)
+      CreateDecoMod.id( "internal/" + common),
+      ResourceLocation.fromNamespaceAndPath("c", forge),
+      ResourceLocation.fromNamespaceAndPath("c", fabric)
     );
   }
 

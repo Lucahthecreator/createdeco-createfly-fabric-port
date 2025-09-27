@@ -35,12 +35,12 @@ public class Bars {
     final ResourceLocation bartex, postex;
     //try {
     if (metal.equals("Iron")) {
-      barTexture = new ResourceLocation("minecraft", "block/iron_bars");
+      barTexture = ResourceLocation.fromNamespaceAndPath("minecraft", "block/iron_bars");
       postTexture = barTexture;
     }
     else {
-      barTexture = new ResourceLocation(reg.getModid(), "block/palettes/metal_bars/" + base);
-      postTexture = new ResourceLocation(reg.getModid(), post);
+      barTexture = ResourceLocation.fromNamespaceAndPath(reg.getModid(), "block/palettes/metal_bars/" + base);
+      postTexture = ResourceLocation.fromNamespaceAndPath(reg.getModid(), post);
     }
 
     // for lambda stuff, must be final

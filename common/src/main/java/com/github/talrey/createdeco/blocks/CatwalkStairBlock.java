@@ -27,8 +27,7 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class CatwalkStairBlock extends Block implements IWrenchable, ProperWaterloggedBlock {
   public static final BooleanProperty RAILING_LEFT = BooleanProperty.create("railing_left");
@@ -99,7 +98,7 @@ public class CatwalkStairBlock extends Block implements IWrenchable, ProperWater
   }
 
   @Override
-  public boolean canPlaceLiquid (BlockGetter world, BlockPos pos, BlockState state, Fluid fluid) {
+  public boolean canPlaceLiquid(@Nullable Player playerEntity, BlockGetter world, BlockPos pos, BlockState state, Fluid fluid) {
     return !state.getValue(BlockStateProperties.WATERLOGGED) && fluid == Fluids.WATER;
   }
 

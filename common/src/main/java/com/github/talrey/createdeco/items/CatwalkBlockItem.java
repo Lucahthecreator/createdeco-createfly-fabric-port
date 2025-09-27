@@ -38,7 +38,7 @@ public class CatwalkBlockItem extends BlockItem {
     IPlacementHelper helper = PlacementHelpers.get(placementHelperID);
     BlockHitResult ray = new BlockHitResult(ctx.getClickLocation(), face, pos, true);
     if (helper.matchesState(state) && player != null) {
-      return helper.getOffset(player, world, state, pos, ray).placeInWorld(world, this, player, ctx.getHand(), ray);
+      return helper.getOffset(player, world, state, pos, ray).placeInWorld(world, this, player, ctx.getHand(), ray).result();
     }
     return super.useOn(ctx);
   }

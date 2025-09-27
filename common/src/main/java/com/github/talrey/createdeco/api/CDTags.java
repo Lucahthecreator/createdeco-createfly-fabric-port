@@ -23,7 +23,7 @@ public class CDTags {
 
   public static final TagKey<Item> PLACARD = TagKey.create(
     Registries.ITEM,
-    new ResourceLocation(CreateDecoMod.MOD_ID, "placards")
+    CreateDecoMod.id( "placards")
   );
 
   public static final LoaderTag<Item> GLASS_ITEM = LoaderTag.same(Registries.ITEM, "colorless_glass");

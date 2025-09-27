@@ -1,5 +1,6 @@
 package com.github.talrey.createdeco.blocks;
 
+import com.mojang.serialization.MapCodec;
 import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
 import com.simibubi.create.foundation.placement.PoleHelper;
 import net.createmod.catnip.placement.IPlacementHelper;
@@ -10,6 +11,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -70,21 +72,23 @@ public class SupportBlock extends DirectionalBlock implements ProperWaterloggedB
             .setValue(WATERLOGGED, false));
   }
 
-  @Override
+    @Override
+    protected MapCodec<? extends DirectionalBlock> codec() {
+        return null;
+    }
+
+    @Override
   protected void createBlockStateDefinition (StateDefinition.Builder<Block, BlockState> builder) {
     builder.add(BlockStateProperties.WATERLOGGED, FACING);
   }
 
   @Override
-  public InteractionResult use(
-    BlockState state, Level world, BlockPos pos, Player player,
-    InteractionHand hand, BlockHitResult ray
-  ) {
+  protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult ray) {
     ItemStack heldItem = player.getItemInHand(hand);
 
     IPlacementHelper placementHelper = PlacementHelpers.get(placementHelperId);
     if (!placementHelper.matchesItem(heldItem))
-      return InteractionResult.PASS;
+      return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 
     return placementHelper.getOffset(player, world, state, pos, ray)
       .placeInWorld(world, ((BlockItem) heldItem.getItem()), player, hand, ray);
@@ -101,7 +105,7 @@ public class SupportBlock extends DirectionalBlock implements ProperWaterloggedB
   }
 
   @Override
-  public boolean canPlaceLiquid (BlockGetter world, BlockPos pos, BlockState state, Fluid fluid) {
+  public boolean canPlaceLiquid(@Nullable Player playerEntity, BlockGetter world, BlockPos pos, BlockState state, Fluid fluid) {
     return !state.getValue(BlockStateProperties.WATERLOGGED) && fluid == Fluids.WATER;
   }
 
