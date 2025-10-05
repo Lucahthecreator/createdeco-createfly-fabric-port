@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "createdeco:tiled_umber_bricks"
+  },
+  "result": {
+    "count": 1,
+    "id": "createdeco:corner_umber_brick_wall"
+  }
+}

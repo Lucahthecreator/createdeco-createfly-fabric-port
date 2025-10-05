@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "createdeco:short_scarlet_bricks"
+  },
+  "result": {
+    "count": 1,
+    "id": "createdeco:short_scarlet_brick_stairs"
+  }
+}

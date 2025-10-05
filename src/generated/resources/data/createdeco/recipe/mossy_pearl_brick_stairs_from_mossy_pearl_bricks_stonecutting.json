@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "createdeco:mossy_pearl_bricks"
+  },
+  "result": {
+    "count": 1,
+    "id": "createdeco:mossy_pearl_brick_stairs"
+  }
+}
