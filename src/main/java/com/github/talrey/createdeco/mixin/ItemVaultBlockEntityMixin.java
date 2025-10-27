@@ -8,6 +8,12 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
+/**
+ * Changes to the Shipping Container's block entity means we don't need this mixin anymore, it's already excluded from the mixins json.
+ * Might be a good idea to delete it if you don't think we'll need it for anything else
+ * - @Cibernet
+ */
+@Deprecated()
 @Mixin(ItemVaultBlockEntity.class)
 public class ItemVaultBlockEntityMixin {
   @ModifyArg(
