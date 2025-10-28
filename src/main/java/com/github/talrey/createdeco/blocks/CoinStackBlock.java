@@ -105,4 +105,13 @@ public class CoinStackBlock extends Block implements ProperWaterloggedBlock {
       ? ItemRegistry.COINSTACKS.get(material).asStack()
       : new ItemStack(Items.AIR);
   }
+
+  @Override
+  protected boolean canSurvive (BlockState state, LevelReader level, BlockPos pos) {
+    return canSurvive(level, pos);
+  }
+
+  public static boolean canSurvive (LevelReader level, BlockPos pos) {
+    return !level.isEmptyBlock(pos.below());
+  }
 }
