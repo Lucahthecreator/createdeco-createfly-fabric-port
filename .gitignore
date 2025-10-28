@@ -24,3 +24,5 @@ runs
 run-data
 
 repo
+common/src/generated/*
+src/generated/*
