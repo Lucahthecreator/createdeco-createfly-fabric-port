@@ -242,7 +242,15 @@ public class BlockRegistry {
 			ZINC_WINDOW_PANE = Windows.metalWindowPane("Zinc", ZINC_WINDOW);
 
 	private static void registerDoors (String metal, Function<String, Item> getter) {
-		if (metal.equals("Iron") || metal.equals("Gold") || metal.equals("Netherite")) {
+		if (metal.equals("Iron")
+			|| metal.equals("Gold")
+			|| metal.equals("Netherite")) {
+			return;
+		}
+		else if (metal.equals("Copper")) {
+			LOCK_DOORS.put(metal, Doors.build(CreateDecoMod.REGISTRATE, metal, true)
+				.recipe(Doors.lockedRecipe(Blocks.COPPER_DOOR::asItem))
+				.register());
 			return;
 		}
 
