@@ -20,9 +20,11 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.client.model.generators.MultiPartBlockStateBuilder;
 
 import java.util.Locale;
+import java.util.function.Function;
 
 public class BlockStateGenerator {
   public static void bar(
@@ -537,11 +539,30 @@ public class BlockStateGenerator {
     );
   }
 
-  public static NonNullBiConsumer<DataGenContext<Block, ConnectedGlassPaneBlock>, RegistrateBlockstateProvider> windowPane(
+  public static NonNullBiConsumer<DataGenContext<Block, ConnectedGlassPaneBlock>, RegistrateBlockstateProvider> windowPane (
     String CGPparents, String prefix, ResourceLocation sideTexture, ResourceLocation topTexture
   ) {
-    // will this explode...?
-    return (ctx, prov) -> BlockStateGenerator.window(ctx, prov, s -> sideTexture, s -> topTexture);
+    Function<RegistrateBlockstateProvider, ModelFile>
+      post = getPaneModelProvider(CGPparents, prefix, "post", sideTexture, topTexture),
+      side = getPaneModelProvider(CGPparents, prefix, "side", sideTexture, topTexture),
+      sideAlt = getPaneModelProvider(CGPparents, prefix, "side_alt", sideTexture, topTexture),
+      noSide = getPaneModelProvider(CGPparents, prefix, "noside", sideTexture, topTexture),
+      noSideAlt = getPaneModelProvider(CGPparents, prefix, "noside_alt", sideTexture, topTexture);
+
+    return (c, p) -> p.paneBlock(c.get(),
+      post.apply(p),
+      side.apply(p),
+      sideAlt.apply(p),
+      noSide.apply(p),
+      noSideAlt.apply(p)
+    );
+  }
+
+  private static Function<RegistrateBlockstateProvider, ModelFile> getPaneModelProvider (String CGPparents, String prefix, String partial, ResourceLocation sideTexture, ResourceLocation topTexture) {
+    return p -> p.models()
+      .withExistingParent(prefix + partial, CreateDecoMod.id(CGPparents + partial))
+      .texture("pane", sideTexture)
+      .texture("edge", topTexture);
   }
 
   public static void ladder(
