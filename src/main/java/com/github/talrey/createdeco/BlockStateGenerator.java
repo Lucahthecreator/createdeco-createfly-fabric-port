@@ -29,12 +29,51 @@ public class BlockStateGenerator {
     String base, String post, ResourceLocation barTexture, ResourceLocation postTexture,
     DataGenContext<Block, ?> ctx, RegistrateBlockstateProvider prov
   ) {
-    ConfiguredModel.builder().modelFile(prov.models().withExistingParent(
-          ctx.getName(), prov.mcLoc("iron_bars_side")
-        ).texture("bars", barTexture)
+    MultiPartBlockStateBuilder builder = prov.getMultipartBuilder(ctx.get());
+    BlockModelBuilder sideModel = prov.models().withExistingParent(
+        base + "_side", prov.mcLoc("block/iron_bars_side"))
+      .texture("bars", barTexture)
+      .texture("edge", postTexture)
+      .texture("particle", postTexture);
+    BlockModelBuilder sideAltModel = prov.models().withExistingParent(
+        base + "_side_alt", prov.mcLoc("block/iron_bars_side_alt"))
+      .texture("bars", barTexture)
+      .texture("edge", postTexture)
+      .texture("particle", postTexture);
+
+    var model = builder.part().modelFile(prov.models().withExistingParent(base + "_post", prov.mcLoc("block/iron_bars_post"))
+        .texture("bars", postTexture).texture("particle", postTexture)
+      ).addModel();
+      model.conditions.put(BlockStateProperties.NORTH, false);
+      model.conditions.put(BlockStateProperties.SOUTH, false);
+      model.conditions.put(BlockStateProperties.EAST, false);
+      model.conditions.put(BlockStateProperties.WEST, false);
+    builder.part().modelFile(
+      prov.models().withExistingParent(base + "_post_ends", prov.mcLoc("block/iron_bars_post_ends"))
+        .texture("edge", postTexture).texture("particle", postTexture)
+    ).addModel();
+    builder.part().modelFile(sideModel).addModel().conditions.put(BlockStateProperties.NORTH, true);
+    builder.part().modelFile(sideModel).rotationY(90).addModel().conditions.put(BlockStateProperties.EAST, true);
+    builder.part().modelFile(sideAltModel).addModel().conditions.put(BlockStateProperties.SOUTH, true);
+    builder.part().modelFile(sideAltModel).rotationY(90).addModel().conditions.put(BlockStateProperties.WEST, true);
+
+    if (!post.equals("")) {
+      BlockModelBuilder sideOverlayModel = prov.models().withExistingParent(
+          base + post, prov.mcLoc("block/iron_bars_side"))
+        .texture("bars", prov.modLoc("block/palettes/metal_bars/" + base + post))
         .texture("edge", postTexture)
-        .texture("particle", postTexture)
-    );
+        .texture("particle", postTexture);
+      BlockModelBuilder sideOverlayAltModel = prov.models().withExistingParent(
+          base + post + "_alt", prov.mcLoc("block/iron_bars_side_alt"))
+        .texture("bars", prov.modLoc("block/palettes/metal_bars/" + base + post))
+        .texture("edge", postTexture)
+        .texture("particle", postTexture);
+
+      builder.part().modelFile(sideOverlayModel).addModel().conditions.put(BlockStateProperties.NORTH, true);
+      builder.part().modelFile(sideOverlayModel).rotationY(90).addModel().conditions.put(BlockStateProperties.EAST, true);
+      builder.part().modelFile(sideOverlayAltModel).addModel().conditions.put(BlockStateProperties.SOUTH, true);
+      builder.part().modelFile(sideOverlayAltModel).rotationY(90).addModel().conditions.put(BlockStateProperties.WEST, true);
+    }
   }
 
   public static void barItem(
