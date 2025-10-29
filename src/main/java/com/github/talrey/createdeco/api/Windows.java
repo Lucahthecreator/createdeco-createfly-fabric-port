@@ -83,10 +83,10 @@ public class Windows {
         .recipe((c, p) -> ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, c.get(), 2)
             .pattern(" # ")
             .pattern("#X#")
-            .define('#', Ingredient.of(CDTags.of(name.replace("_window", ""), "ingots").tag))
-            .define('X', CDTags.GLASS_ITEM.tag)
+            .define('#', Ingredient.of(CreateDecoTags.ingot(name.replace("_window", ""))))
+            .define('X', CreateDecoTags.GLASS)
             .unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(
-                ItemPredicate.Builder.item().of(CDTags.of(name.replace("_window", ""), "ingots").tag).build()
+                ItemPredicate.Builder.item().of(CreateDecoTags.ingot(name.replace("_window", "")))
             ))
             .save(p))
         .initialProperties(() -> Blocks.GLASS)
