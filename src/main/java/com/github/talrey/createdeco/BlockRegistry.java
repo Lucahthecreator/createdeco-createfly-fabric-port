@@ -210,11 +210,11 @@ public class BlockRegistry {
 					Wedges.recipe(metal, ctx, prov);
 				})
 				.register());
-		FACADES.put(metal, Facades.build(CreateDecoMod.REGISTRATE, metal)
-				.recipe( (ctx, prov)-> {
-					Bars.recipeStonecutting(()->getter.apply("ingot"), ctx, prov);
-				})
-				.register());
+//		FACADES.put(metal, Facades.build(CreateDecoMod.REGISTRATE, metal)
+//				.recipe( (ctx, prov)-> {
+//					Bars.recipeStonecutting(()->getter.apply("ingot"), ctx, prov);
+//				})
+//				.register());
 	}
 
 	private static void registerSheetMetal (String metal, Function<String, Item> getter) {
