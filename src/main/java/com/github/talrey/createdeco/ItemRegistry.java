@@ -66,11 +66,11 @@ public class ItemRegistry {
       .lang("Zinc Sheet")
       .register();
 
-    NETHERITE_SHEET = CreateDecoMod.REGISTRATE.item("netherite_sheet", Item::new)
-      .properties(Item.Properties::fireResistant)
-      .tag(CreateDecoTags.plate("Netherite"))
-      .lang("Netherite Sheet")
-      .register();
+//    NETHERITE_SHEET = CreateDecoMod.REGISTRATE.item("netherite_sheet", Item::new)
+//      .properties(Item.Properties::fireResistant)
+//      .tag(CreateDecoTags.plate("Netherite"))
+//      .lang("Netherite Sheet")
+//      .register();
 
     INDUSTRIAL_IRON_SHEET = CreateDecoMod.REGISTRATE.item("industrial_iron_sheet", Item::new)
       .tag(CreateDecoTags.plate("Industrial Iron"))
