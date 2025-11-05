@@ -170,7 +170,7 @@ public class CageLampBlock extends DirectionalBlock implements ProperWaterlogged
 
   public static boolean canSurvive(LevelReader level, BlockPos pos, Direction facing) {
     BlockPos opposite = pos.relative(facing.getOpposite());
-    return level.getBlockState(opposite).isFaceSturdy(level, opposite, facing);
+    return Block.canSupportCenter(level, opposite, facing.getOpposite());
   }
 
   @Override
