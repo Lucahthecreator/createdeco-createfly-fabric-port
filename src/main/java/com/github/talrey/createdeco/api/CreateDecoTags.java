@@ -21,11 +21,13 @@ public class CreateDecoTags {
   private static final HashMap<String, TagKey<Block>> BLOCKS = new HashMap<>();
 
   public static final TagKey<Item> PLACARDS = of(CreateDecoMod.MOD_ID, "placards");
-  public static final TagKey<Item> GLASS = of(CreateDecoMod.MOD_ID, "colorless_glass");
+  public static final TagKey<Item> GLASS = common("glass_blocks/colorless");
+    //of(CreateDecoMod.MOD_ID, "colorless_glass");
 
   public static void init () {
     for (String metal : ItemRegistry.METAL_TYPES.keySet()) {
       String metalID = metal.toLowerCase(Locale.ROOT).replaceAll(" ", "_");
+      if (metalID.equals("andesite")) metalID += "_alloy";
       PLATES.put(metal, common("plates/" + metalID));
       NUGGETS.put(metal, common("nuggets/" + metalID));
       INGOTS.put(metal, common("ingots/" + metalID));
