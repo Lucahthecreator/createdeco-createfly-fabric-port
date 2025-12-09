@@ -30,7 +30,9 @@ public class ItemRegistry {
 
   public static void init () {
     CreateDecoMod.LOGGER.info("Registering items for " + CreateDecoMod.NAME);
-    CreateDecoMod.REGISTRATE.defaultCreativeTab("props_tab");
+    CreateDecoMod.REGISTRATE.defaultCreativeTab(CreativeTabs.PROPS_KEY);
+    CreateDecoMod.REGISTRATE.addLang("itemGroup", CreateDecoMod.id(CreativeTabs.PROPS_KEY), "Create Deco Props");
+    CreateDecoMod.REGISTRATE.addLang("itemGroup", CreateDecoMod.id(CreativeTabs.BRICKS_KEY), "Create Deco Bricks");
 
     METAL_TYPES.put("Andesite", (str) -> AllItems.ANDESITE_ALLOY.get());
     METAL_TYPES.put("Zinc", (str) -> AllItems.ZINC_INGOT.get());
