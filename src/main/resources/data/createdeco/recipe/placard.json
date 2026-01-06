@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "group": "dye_placard",
   "ingredients": [
     {
@@ -10,6 +11,7 @@
     }
   ],
   "result": {
-    "item": "create:placard"
+    "count": 1,
+    "id": "create:placard"
   }
 }
