@@ -78,6 +78,8 @@ public class CatwalkRailingBlock extends Block implements IWrenchable, ProperWat
     var z = subbox.z;
 
     if (level.isClientSide() || face == Direction.DOWN) return InteractionResult.PASS;
+    //Fixes block state not properly removing
+    if(getSideCount(state) == 1) return IWrenchable.super.onSneakWrenched(state, context);
 
     //check if the top face is wrenched, remove side
     if (face == Direction.UP) {
@@ -91,8 +93,6 @@ public class CatwalkRailingBlock extends Block implements IWrenchable, ProperWat
       //obscure edge case where a corner of the top face cannot be wrenched
       if (state.getValue(fromDirection(dir))) {
         state = state.setValue(fromDirection(dir), false);
-        // This makes so the block is not placed to empty state
-        if(isEmpty(state)) return IWrenchable.super.onSneakWrenched(state, context);
         level.setBlock(pos, state, 3);
         IWrenchable.playRemoveSound(level, pos);
         if (player != null && !player.getAbilities().instabuild) player.addItem(new ItemStack(state.getBlock().asItem()));
@@ -115,7 +115,6 @@ public class CatwalkRailingBlock extends Block implements IWrenchable, ProperWat
       else state = state.setValue(fromDirection(face), false);
     }
 
-    if(isEmpty(state)) return IWrenchable.super.onSneakWrenched(state, context);
     level.setBlock(pos, state, 3);
     IWrenchable.playRemoveSound(level, pos);
     if (player != null && !player.getAbilities().instabuild) player.addItem(new ItemStack(state.getBlock().asItem()));
@@ -211,8 +210,17 @@ public class CatwalkRailingBlock extends Block implements IWrenchable, ProperWat
     };
   }
 
+  public int getSideCount(BlockState state) {
+    int c = 0;
+    if(state.getValue(NORTH_FENCE)) c++;
+    if(state.getValue(SOUTH_FENCE)) c++;
+    if(state.getValue(WEST_FENCE)) c++;
+    if(state.getValue(EAST_FENCE)) c++;
+    return c;
+  }
+
   public boolean isEmpty(BlockState state) {
-    return !state.getValue(NORTH_FENCE) && !state.getValue(SOUTH_FENCE) && !state.getValue(WEST_FENCE) && !state.getValue(EAST_FENCE);
+    return getSideCount(state) == 0;
   }
 
   @Override
