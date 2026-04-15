@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
@@ -89,6 +90,7 @@ public class CageLamps {
       .properties(props-> props.noOcclusion().strength(0.5f).sound(SoundType.LANTERN).lightLevel((state)-> state.getValue(BlockStateProperties.LIT)?15:0))
       .blockstate((ctx,prov)-> BlockStateGenerator.cageLamp(cage, lampOn, lampOff, ctx, prov))
       .addLayer(()-> RenderType::cutoutMipped)
+      .tag(BlockTags.MINEABLE_WITH_PICKAXE)
       .lang(color.name().charAt(0) + color.name().substring(1).toLowerCase() + " " + name + " Cage Lamp")
       .simpleItem();
   }
