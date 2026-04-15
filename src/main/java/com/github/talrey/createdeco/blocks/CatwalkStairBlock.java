@@ -40,21 +40,35 @@ public class CatwalkStairBlock extends Block implements IWrenchable, ProperWater
     Block.box(0d, 6d, 0d, 16d, 8d, 8d),
     BooleanOp.OR
   );
-  private static final VoxelShape BOX_SOUTH = Shapes.join(
-    Block.box(0d, 14d, 0d, 16d, 16d, 8d),
-    Block.box(0d, 6d, 8d, 16d, 8d, 16d),
-    BooleanOp.OR
+  private static final VoxelShape RAILING_WEST = Shapes.or(
+    Block.box(14,0,0, 16,20,4),
+    Block.box(14,4,4, 16,24,8),
+    Block.box(14,8,8, 16,28,12),
+    Block.box(14,12,12, 16,32,16)
   );
-  private static final VoxelShape BOX_WEST = Shapes.join(
-    Block.box(8d, 14d, 0d, 16d, 16d, 16d),
-    Block.box(0d, 6d, 0d, 8d, 8d, 16d),
-    BooleanOp.OR
+  private static final VoxelShape RAILING_EAST = Shapes.or(
+    Block.box(0,0,0, 2,20,4),
+    Block.box(0,4,4, 2,24,8),
+    Block.box(0,8,8, 2,28,12),
+    Block.box(0,12,12, 2,32,16)
   );
-  private static final VoxelShape BOX_EAST = Shapes.join(
-    Block.box(0d, 14d, 0d, 8d, 16d, 16),
-    Block.box(8d, 6d, 0d, 16d, 8d, 16d),
-    BooleanOp.OR
-  );
+
+  private static final VoxelShape NORTH_LEFT  = Shapes.or(BOX_NORTH, RAILING_WEST);
+  private static final VoxelShape NORTH_RIGHT = Shapes.or(BOX_NORTH, RAILING_EAST);
+  private static final VoxelShape NORTH_BOTH  = Shapes.or(BOX_NORTH, RAILING_WEST, RAILING_EAST);
+
+  private static final VoxelShape[] SHAPES = {
+    BOX_NORTH, NORTH_LEFT, NORTH_RIGHT, NORTH_BOTH,
+    rotate(BOX_NORTH, Direction.SOUTH), rotate(NORTH_LEFT, Direction.SOUTH), rotate(NORTH_RIGHT, Direction.SOUTH), rotate(NORTH_BOTH, Direction.SOUTH),
+    rotate(BOX_NORTH, Direction.EAST),  rotate(NORTH_LEFT, Direction.EAST), rotate(NORTH_RIGHT, Direction.EAST), rotate(NORTH_BOTH, Direction.EAST),
+    rotate(BOX_NORTH, Direction.WEST),  rotate(NORTH_LEFT, Direction.WEST), rotate(NORTH_RIGHT, Direction.WEST), rotate(NORTH_BOTH, Direction.WEST)
+  };
+  private static final int LOOKUP_NORTH = 0;
+  private static final int LOOKUP_SOUTH = 4;
+  private static final int LOOKUP_EAST  = 8;
+  private static final int LOOKUP_WEST  = 12;
+  private static final int ADJ_LEFT  = 1;
+  private static final int ADJ_RIGHT = 2;
 
   public CatwalkStairBlock (Properties props, String metal) {
     super(props);
@@ -109,12 +123,29 @@ public class CatwalkStairBlock extends Block implements IWrenchable, ProperWater
 
   @Override
   public VoxelShape getShape (BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
-    return switch(state.getValue(BlockStateProperties.HORIZONTAL_FACING)) {
-      case SOUTH -> BOX_SOUTH;
-      case EAST  -> BOX_EAST;
-      case WEST  -> BOX_WEST;
-      default    -> BOX_NORTH;
+    int index = switch(state.getValue(BlockStateProperties.HORIZONTAL_FACING)) {
+      case SOUTH -> LOOKUP_SOUTH;
+      case EAST  -> LOOKUP_EAST;
+      case WEST  -> LOOKUP_WEST;
+      default    -> LOOKUP_NORTH;
     };
+    if (state.getValue(RAILING_LEFT))  index += ADJ_LEFT;
+    if (state.getValue(RAILING_RIGHT)) index += ADJ_RIGHT;
+    return SHAPES[index];
+  }
+
+  private static VoxelShape rotate (VoxelShape input, Direction to) {
+    VoxelShape[] temp = new VoxelShape[]{ input, Shapes.empty() };
+    int iterations = (to.get2DDataValue() - Direction.NORTH.get2DDataValue() + 4) % 4;
+    for (int count=0; count<iterations; count++) {
+      temp[0].forAllBoxes((minX, minY, minZ, maxX, maxY, maxZ) ->
+        temp[1] = Shapes.or(temp[1],
+          Shapes.create(1 - maxZ, minY, minX, 1 - minZ, maxY, maxX))
+      );
+      temp[0] = temp[1];
+      temp[1] = Shapes.empty();
+    }
+    return temp[0];
   }
 
   @Override

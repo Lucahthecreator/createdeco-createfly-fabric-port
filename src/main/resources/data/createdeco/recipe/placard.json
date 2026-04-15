@@ -7,7 +7,7 @@
       "tag": "createdeco:placards"
     },
     {
-      "item": "minecraft:white_dye"
+      "id": "minecraft:white_dye"
     }
   ],
   "result": {

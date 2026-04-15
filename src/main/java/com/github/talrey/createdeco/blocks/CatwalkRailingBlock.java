@@ -28,7 +28,9 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import org.lwjgl.system.NonnullDefault;
 
+@NonnullDefault
 public class CatwalkRailingBlock extends Block implements IWrenchable, ProperWaterloggedBlock {
   private static final VoxelShape VOXEL_NORTH = Block.box(
           0d, 0d, 0d,
@@ -54,8 +56,10 @@ public class CatwalkRailingBlock extends Block implements IWrenchable, ProperWat
 
   public CatwalkRailingBlock (Properties props) {
     super(props);
+    // Changed this to have north face defaulted to true.
+    // 4 false values should be considered air
     this.registerDefaultState(this.defaultBlockState()
-            .setValue(NORTH_FENCE, false)
+            .setValue(NORTH_FENCE, true)
             .setValue(SOUTH_FENCE, false)
             .setValue(EAST_FENCE,  false)
             .setValue(WEST_FENCE,  false)
@@ -64,7 +68,7 @@ public class CatwalkRailingBlock extends Block implements IWrenchable, ProperWat
   }
 
   @Override
-  public InteractionResult onSneakWrenched (BlockState state, UseOnContext context) {
+  public InteractionResult onSneakWrenched(BlockState state, UseOnContext context) {
     BlockPos pos   = context.getClickedPos();
     Vec3 subbox    = context.getClickLocation().subtract(pos.getCenter());
     Direction face = context.getClickedFace();
@@ -74,6 +78,8 @@ public class CatwalkRailingBlock extends Block implements IWrenchable, ProperWat
     var z = subbox.z;
 
     if (level.isClientSide() || face == Direction.DOWN) return InteractionResult.PASS;
+    //Fixes block state not properly removing
+    if(getSideCount(state) == 1) return IWrenchable.super.onSneakWrenched(state, context);
 
     //check if the top face is wrenched, remove side
     if (face == Direction.UP) {
@@ -83,14 +89,13 @@ public class CatwalkRailingBlock extends Block implements IWrenchable, ProperWat
       if (!bottomleft && topleft) dir = Direction.SOUTH;
       if (!bottomleft && !topleft) dir = Direction.EAST;
       if (bottomleft && !topleft) dir = Direction.NORTH;
-      if (bottomleft && topleft) dir = Direction.WEST;
 
       //obscure edge case where a corner of the top face cannot be wrenched
       if (state.getValue(fromDirection(dir))) {
         state = state.setValue(fromDirection(dir), false);
         level.setBlock(pos, state, 3);
         IWrenchable.playRemoveSound(level, pos);
-        if (!player.getAbilities().instabuild) player.addItem(new ItemStack(state.getBlock().asItem()));
+        if (player != null && !player.getAbilities().instabuild) player.addItem(new ItemStack(state.getBlock().asItem()));
         return InteractionResult.SUCCESS;
       }
       else return InteractionResult.PASS;
@@ -112,7 +117,7 @@ public class CatwalkRailingBlock extends Block implements IWrenchable, ProperWat
 
     level.setBlock(pos, state, 3);
     IWrenchable.playRemoveSound(level, pos);
-    if (!player.getAbilities().instabuild) player.addItem(new ItemStack(state.getBlock().asItem()));
+    if (player != null && !player.getAbilities().instabuild) player.addItem(new ItemStack(state.getBlock().asItem()));
     return InteractionResult.SUCCESS;
   }
 
@@ -121,13 +126,12 @@ public class CatwalkRailingBlock extends Block implements IWrenchable, ProperWat
   public BlockState getStateForPlacement (BlockPlaceContext ctx) {
     Direction facing = ctx.getHorizontalDirection();
     FluidState fluid = ctx.getLevel().getFluidState(ctx.getClickedPos());
-    BlockState state = defaultBlockState()
-            .setValue(NORTH_FENCE, (facing == Direction.NORTH))
-            .setValue(SOUTH_FENCE, (facing == Direction.SOUTH))
-            .setValue(EAST_FENCE,  (facing == Direction.EAST))
-            .setValue(WEST_FENCE,  (facing == Direction.WEST))
-            .setValue(BlockStateProperties.WATERLOGGED, fluid.getType() == Fluids.WATER);
-    return state;
+      return defaultBlockState()
+              .setValue(NORTH_FENCE, (facing == Direction.NORTH))
+              .setValue(SOUTH_FENCE, (facing == Direction.SOUTH))
+              .setValue(EAST_FENCE,  (facing == Direction.EAST))
+              .setValue(WEST_FENCE,  (facing == Direction.WEST))
+              .setValue(BlockStateProperties.WATERLOGGED, fluid.getType() == Fluids.WATER);
   }
 
   @Override
@@ -206,12 +210,17 @@ public class CatwalkRailingBlock extends Block implements IWrenchable, ProperWat
     };
   }
 
+  public int getSideCount(BlockState state) {
+    int c = 0;
+    if(state.getValue(NORTH_FENCE)) c++;
+    if(state.getValue(SOUTH_FENCE)) c++;
+    if(state.getValue(WEST_FENCE)) c++;
+    if(state.getValue(EAST_FENCE)) c++;
+    return c;
+  }
+
   public boolean isEmpty(BlockState state) {
-    boolean safe = false;
-    for (Direction dir : BlockStateProperties.HORIZONTAL_FACING.getPossibleValues()) {
-      safe |= state.getValue(fromDirection(dir));
-    }
-    return !safe;
+    return getSideCount(state) == 0;
   }
 
   @Override
@@ -251,7 +260,6 @@ public class CatwalkRailingBlock extends Block implements IWrenchable, ProperWat
         west = state.getValue(WEST_FENCE);
       }
     }
-    BlockState newState = defaultBlockState().setValue(NORTH_FENCE, north).setValue(SOUTH_FENCE, south).setValue(EAST_FENCE, east).setValue(WEST_FENCE, west);
-    return newState;
+    return defaultBlockState().setValue(NORTH_FENCE, north).setValue(SOUTH_FENCE, south).setValue(EAST_FENCE, east).setValue(WEST_FENCE, west);
   }
 }

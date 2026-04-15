@@ -34,6 +34,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
+import net.neoforged.neoforge.common.Tags;
 
 import java.util.Locale;
 import java.util.function.Supplier;
@@ -75,28 +76,29 @@ public class Windows {
                                                     NonNullFunction<String, ResourceLocation> endTexture, NonNullFunction<String, ResourceLocation> sideTexture,
                                                     Supplier<MapColor> color) {
     return CreateDecoMod.REGISTRATE.block(name.toLowerCase(Locale.ROOT).replace(" ", "_"), p -> new WindowBlock(p, translucent))
-        //.onRegister(connectedTextures(() -> new HorizontalCTBehaviour(ct.get())))
-        .onRegister(CreateRegistrate.connectedTextures(() ->
-            new HorizontalCTBehaviour(SpriteShifts.METAL_WINDOWS.get(name.replace("_window", ""))
-        )))
-        .addLayer(renderType)
-        .recipe((c, p) -> ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, c.get(), 2)
-            .pattern(" # ")
-            .pattern("#X#")
-            .define('#', Ingredient.of(CreateDecoTags.ingot(name.replace("_window", ""))))
-            .define('X', CreateDecoTags.GLASS)
-            .unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(
-                ItemPredicate.Builder.item().of(CreateDecoTags.ingot(name.replace("_window", "")))
-            ))
-            .save(p))
-        .initialProperties(() -> Blocks.GLASS)
-        .properties(Windows::glassProperties)
-        .properties(p -> p.mapColor(color.get()))
-        .loot((t, g) -> t.dropWhenSilkTouch(g))
-        .blockstate((ctx,prov)-> BlockStateGenerator.window(ctx, prov, sideTexture, endTexture))
-        .tag(BlockTags.IMPERMEABLE)
-        .simpleItem()
-        .register();
+      //.onRegister(connectedTextures(() -> new HorizontalCTBehaviour(ct.get())))
+      .onRegister(CreateRegistrate.connectedTextures(() ->
+        new HorizontalCTBehaviour(SpriteShifts.METAL_WINDOWS.get(name.replace("_window", ""))
+      )))
+      .addLayer(renderType)
+      .recipe((c, p) -> ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, c.get(), 2)
+        .pattern(" # ")
+        .pattern("#X#")
+        .define('#', Ingredient.of(CreateDecoTags.ingot(name.replace("_window", ""))))
+        .define('X', Tags.Items.GLASS_BLOCKS_COLORLESS)
+        .unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(
+          ItemPredicate.Builder.item().of(CreateDecoTags.ingot(name.replace("_window", "")))
+        ))
+        .save(p))
+      .initialProperties(() -> Blocks.GLASS)
+      .properties(Windows::glassProperties)
+      .properties(p -> p.mapColor(color.get()))
+      .loot((t, g) -> t.dropWhenSilkTouch(g))
+      .blockstate((ctx,prov)-> BlockStateGenerator.window(ctx, prov, sideTexture, endTexture))
+      .tag(BlockTags.IMPERMEABLE)
+      .tag(Tags.Blocks.GLASS_BLOCKS)
+      .simpleItem()
+      .register();
   }
 
   public static BlockEntry<ConnectedGlassPaneBlock> metalWindowPane(String metal,
@@ -132,25 +134,26 @@ public class Windows {
     name += "_pane";
 
     return CreateDecoMod.REGISTRATE.block(name, factory)
-        .onRegister(connectedTextures)
-        .addLayer(renderType)
-        .initialProperties(() -> Blocks.GLASS_PANE)
-        .properties(p -> p.mapColor(parent.get()
-            .defaultMapColor()))
-        .blockstate(stateProvider)
-        .recipe((c, p) -> ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, c.get(), 16)
-            .pattern("###")
-            .pattern("###")
-            .define('#', parent.get())
-            .unlockedBy("has_ingredient", RegistrateRecipeProvider.has(parent.get()))
-            .save(p))
-        .loot((t, g) -> t.dropWhenSilkTouch(g))
-        .item()
-        .model((c, p) -> p.withExistingParent(c.getName(), CreateDecoMod.id("item/pane"))
-            .texture("pane", sideTexture)
-            .texture("edge", topTexture))
-        .build()
-        .register();
+      .onRegister(connectedTextures)
+      .addLayer(renderType)
+      .initialProperties(() -> Blocks.GLASS_PANE)
+      .properties(p -> p.mapColor(parent.get()
+        .defaultMapColor()))
+      .blockstate(stateProvider)
+      .tag(Tags.Blocks.GLASS_PANES)
+      .recipe((c, p) -> ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, c.get(), 16)
+        .pattern("###")
+        .pattern("###")
+        .define('#', parent.get())
+        .unlockedBy("has_ingredient", RegistrateRecipeProvider.has(parent.get()))
+        .save(p))
+      .loot((t, g) -> t.dropWhenSilkTouch(g))
+      .item()
+      .model((c, p) -> p.withExistingParent(c.getName(), CreateDecoMod.id("item/pane"))
+        .texture("pane", sideTexture)
+        .texture("edge", topTexture))
+      .build()
+      .register();
   }
 
   private static String palettesDir() {

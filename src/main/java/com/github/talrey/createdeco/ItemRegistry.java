@@ -30,7 +30,9 @@ public class ItemRegistry {
 
   public static void init () {
     CreateDecoMod.LOGGER.info("Registering items for " + CreateDecoMod.NAME);
-    CreateDecoMod.REGISTRATE.defaultCreativeTab("props_tab");
+    CreateDecoMod.REGISTRATE.defaultCreativeTab(CreativeTabs.PROPS_KEY);
+    CreateDecoMod.REGISTRATE.addLang("itemGroup", CreateDecoMod.id(CreativeTabs.PROPS_KEY), "Create Deco Props");
+    CreateDecoMod.REGISTRATE.addLang("itemGroup", CreateDecoMod.id(CreativeTabs.BRICKS_KEY), "Create Deco Bricks");
 
     METAL_TYPES.put("Andesite", (str) -> AllItems.ANDESITE_ALLOY.get());
     METAL_TYPES.put("Zinc", (str) -> AllItems.ZINC_INGOT.get());
@@ -58,11 +60,13 @@ public class ItemRegistry {
   private static void registerSheets () {
     ANDESITE_SHEET = CreateDecoMod.REGISTRATE.item("andesite_sheet", Item::new)
         .tag(CreateDecoTags.plate("Andesite"))
+        .tag(CreateDecoTags.plate())
         .lang("Andesite Alloy Sheet")
         .register();
 
     ZINC_SHEET = CreateDecoMod.REGISTRATE.item("zinc_sheet", Item::new)
       .tag(CreateDecoTags.plate("Zinc"))
+      .tag(CreateDecoTags.plate())
       .lang("Zinc Sheet")
       .register();
 
@@ -74,6 +78,7 @@ public class ItemRegistry {
 
     INDUSTRIAL_IRON_SHEET = CreateDecoMod.REGISTRATE.item("industrial_iron_sheet", Item::new)
       .tag(CreateDecoTags.plate("Industrial Iron"))
+      .tag(CreateDecoTags.plate())
       .lang("Industrial Iron Sheet")
       .register();
   }
@@ -82,12 +87,14 @@ public class ItemRegistry {
     NETHERITE_NUGGET = CreateDecoMod.REGISTRATE.item("netherite_nugget", Item::new)
       .properties(Item.Properties::fireResistant)
       .tag(CreateDecoTags.nugget("Netherite"))
+      .tag(CreateDecoTags.nugget())
       .lang("Netherite Nugget")
       .recipe((ctx, prov) -> prov.storage(ctx, RecipeCategory.MISC, () -> Items.NETHERITE_INGOT))
       .register();
 
     INDUSTRIAL_IRON_NUGGET = CreateDecoMod.REGISTRATE.item("industrial_iron_nugget", Item::new)
       .tag(CreateDecoTags.nugget("Industrial Iron"))
+      .tag(CreateDecoTags.nugget())
       .lang("Industrial Iron Nugget")
       .recipe((ctx, prov) -> prov.storage(ctx, RecipeCategory.MISC, INDUSTRIAL_IRON_INGOT))
       .register();
@@ -96,6 +103,7 @@ public class ItemRegistry {
   private static void registerIngots () {
     INDUSTRIAL_IRON_INGOT = CreateDecoMod.REGISTRATE.item("industrial_iron_ingot", Item::new)
       .tag(CreateDecoTags.ingot("Industrial Iron"))
+      .tag(CreateDecoTags.ingot())
       .lang("Industrial Iron Ingot")
       .recipe((ctx, prov) -> prov.storage(ctx, RecipeCategory.MISC, AllBlocks.INDUSTRIAL_IRON_BLOCK))
       .register();

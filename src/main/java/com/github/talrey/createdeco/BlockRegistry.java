@@ -132,16 +132,17 @@ public class BlockRegistry {
 		BARS.put(metal, Bars.build(CreateDecoMod.REGISTRATE, metal, "", postFlag)
 				.recipe( (ctx, prov)-> {
 					Bars.recipeStonecutting(()->getter.apply("ingot"), ctx, prov);
-					Bars.recipeCrafting(()->getter.apply("ingot"), ctx, prov);
+					if (!metal.equals("Copper")) // crafting recipe overlaps with copper trapdoors
+						Bars.recipeCrafting(()->getter.apply("ingot"), ctx, prov);
 				}).register());
 	}
 
 	private static void registerFences (String metal, Function<String, Item> getter) {
 		MESH_FENCES.put(metal, MeshFences.build(CreateDecoMod.REGISTRATE, metal)
-				.recipe( (ctx, prov)-> {
-					MeshFences.fenceRecipe(metal, ctx, prov);
-					Bars.recipeStonecutting(()->getter.apply("ingot"), ctx, prov);
-				}).register());
+			.recipe( (ctx, prov)-> {
+				MeshFences.fenceRecipe(metal, ctx, prov);
+				Bars.recipeStonecutting(()->getter.apply("ingot"), ctx, prov);
+			}).register());
 	}
 
 	private static void registerDecals () {
@@ -331,12 +332,12 @@ public class BlockRegistry {
 					})
 					.onRegisterAfter(Registries.ITEM, placard -> {
 						// none of this works. TODO ask about tooltips
-						TooltipModifier original = TooltipModifier.REGISTRY.get(AllBlocks.PLACARD.asItem());
-						if (original == null) {
-							CreateDecoMod.LOGGER.info("placard tooltip was null"); // why is it null?
-						} else if (original.equals(TooltipModifier.EMPTY)) {
-							CreateDecoMod.LOGGER.info("placard tooltip was empty");
-						}
+//						TooltipModifier original = TooltipModifier.REGISTRY.get(AllBlocks.PLACARD.asItem());
+//						if (original == null) {
+//							CreateDecoMod.LOGGER.info("placard tooltip was null"); // why is it null?
+//						} else if (original.equals(TooltipModifier.EMPTY)) {
+//							CreateDecoMod.LOGGER.info("placard tooltip was empty");
+//						}
 						//TODO - this fully crashes on Create 6.0
 //						TooltipModifier.REGISTRY.register(placard.asItem(),
 //								TooltipModifier.REGISTRY.get(AllBlocks.PLACARD.asItem())
@@ -368,7 +369,7 @@ public class BlockRegistry {
 
 		COIN_BLOCKS.put(metal, Coins.buildCoinStackBlock(
 				CreateDecoMod.REGISTRATE,
-				()-> ItemRegistry.COINSTACKS.get(metal).get(),
+				()-> ItemRegistry.COINS.get(metal).get(),
 				metal, side, bottom, top
 		).register());
 	}
