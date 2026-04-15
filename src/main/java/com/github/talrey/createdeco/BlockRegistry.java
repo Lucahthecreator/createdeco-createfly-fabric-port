@@ -132,7 +132,8 @@ public class BlockRegistry {
 		BARS.put(metal, Bars.build(CreateDecoMod.REGISTRATE, metal, "", postFlag)
 				.recipe( (ctx, prov)-> {
 					Bars.recipeStonecutting(()->getter.apply("ingot"), ctx, prov);
-					Bars.recipeCrafting(()->getter.apply("ingot"), ctx, prov);
+					if (!metal.equals("Copper")) // crafting recipe overlaps with copper trapdoors
+						Bars.recipeCrafting(()->getter.apply("ingot"), ctx, prov);
 				}).register());
 	}
 
