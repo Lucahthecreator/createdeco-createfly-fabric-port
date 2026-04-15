@@ -72,7 +72,7 @@ public class Coins {
           entry.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
             .setProperties(StatePropertiesPredicate.Builder.properties()
               .hasProperty(BlockStateProperties.LAYERS, layer)
-            )).apply(SetItemCountFunction.setCount(ConstantValue.exactly(layer)));
+            )).apply(SetItemCountFunction.setCount(ConstantValue.exactly(layer*4)));
           pool.add(entry);
         }
         table.add(block, builder.withPool(pool));

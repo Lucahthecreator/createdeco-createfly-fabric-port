@@ -368,7 +368,7 @@ public class BlockRegistry {
 
 		COIN_BLOCKS.put(metal, Coins.buildCoinStackBlock(
 				CreateDecoMod.REGISTRATE,
-				()-> ItemRegistry.COINSTACKS.get(metal).get(),
+				()-> ItemRegistry.COINS.get(metal).get(),
 				metal, side, bottom, top
 		).register());
 	}
