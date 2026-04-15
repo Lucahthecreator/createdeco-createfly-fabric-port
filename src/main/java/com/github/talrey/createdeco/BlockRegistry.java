@@ -138,10 +138,10 @@ public class BlockRegistry {
 
 	private static void registerFences (String metal, Function<String, Item> getter) {
 		MESH_FENCES.put(metal, MeshFences.build(CreateDecoMod.REGISTRATE, metal)
-				.recipe( (ctx, prov)-> {
-					MeshFences.fenceRecipe(metal, ctx, prov);
-					Bars.recipeStonecutting(()->getter.apply("ingot"), ctx, prov);
-				}).register());
+			.recipe( (ctx, prov)-> {
+				MeshFences.fenceRecipe(metal, ctx, prov);
+				Bars.recipeStonecutting(()->getter.apply("ingot"), ctx, prov);
+			}).register());
 	}
 
 	private static void registerDecals () {
@@ -331,12 +331,12 @@ public class BlockRegistry {
 					})
 					.onRegisterAfter(Registries.ITEM, placard -> {
 						// none of this works. TODO ask about tooltips
-						TooltipModifier original = TooltipModifier.REGISTRY.get(AllBlocks.PLACARD.asItem());
-						if (original == null) {
-							CreateDecoMod.LOGGER.info("placard tooltip was null"); // why is it null?
-						} else if (original.equals(TooltipModifier.EMPTY)) {
-							CreateDecoMod.LOGGER.info("placard tooltip was empty");
-						}
+//						TooltipModifier original = TooltipModifier.REGISTRY.get(AllBlocks.PLACARD.asItem());
+//						if (original == null) {
+//							CreateDecoMod.LOGGER.info("placard tooltip was null"); // why is it null?
+//						} else if (original.equals(TooltipModifier.EMPTY)) {
+//							CreateDecoMod.LOGGER.info("placard tooltip was empty");
+//						}
 						//TODO - this fully crashes on Create 6.0
 //						TooltipModifier.REGISTRY.register(placard.asItem(),
 //								TooltipModifier.REGISTRY.get(AllBlocks.PLACARD.asItem())

@@ -109,6 +109,7 @@ public class Bricks {
         )
         .blockstate((ctx, prov) -> BlockStateGenerator.brickStair(ctx, prov, color))
         .tag(BlockTags.MINEABLE_WITH_PICKAXE)
+        .tag(BlockTags.STAIRS)
         .lang(
           CAPITALS.get(TYPES.indexOf(prefix))
             + color.substring(0, 1).toUpperCase()
@@ -155,6 +156,7 @@ public class Bricks {
         )
         .blockstate((ctx, prov) -> BlockStateGenerator.brickSlab(ctx, prov, color))
         .tag(BlockTags.MINEABLE_WITH_PICKAXE)
+        .tag(BlockTags.SLABS)
         .lang(
           CAPITALS.get(TYPES.indexOf(prefix))
             + color.substring(0, 1).toUpperCase()

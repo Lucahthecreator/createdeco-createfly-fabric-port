@@ -48,16 +48,17 @@ public class Bars {
     postex = postTexture;
 
     var block = reg.block(base + suf, IronBarsBlock::new)
-            .properties(props -> props.noOcclusion().strength(5, 6)
-              .requiresCorrectToolForDrops()
-              .sound(SoundType.NETHERITE_BLOCK))
-            .blockstate((ctx, prov)-> BlockStateGenerator.bar(base, suf, bartex, postex, ctx, prov))
-            .addLayer(()-> RenderType::cutoutMipped)
-            .tag(BlockTags.MINEABLE_WITH_PICKAXE)
-            .item()
-            .model((ctx, prov) -> BlockStateGenerator.barItem(base, suf, bartex, ctx, prov))
-            .properties(p -> (metal.equals("Netherite")) ? p.fireResistant() : p)
-            .build();
+      .properties(props -> props.noOcclusion().strength(5, 6)
+        .requiresCorrectToolForDrops()
+        .sound(SoundType.NETHERITE_BLOCK))
+      .blockstate((ctx, prov)-> BlockStateGenerator.bar(base, suf, bartex, postex, ctx, prov))
+      .addLayer(()-> RenderType::cutoutMipped)
+      .tag(BlockTags.MINEABLE_WITH_PICKAXE)
+      .tag(CreateDecoTags.BARS)
+      .item()
+        .model((ctx, prov) -> BlockStateGenerator.barItem(base, suf, bartex, ctx, prov))
+        .properties(p -> (metal.equals("Netherite")) ? p.fireResistant() : p)
+        .build();
 
     if (!suffix.equals("overlay")) {
       block = block.tag(AllTags.AllBlockTags.FAN_TRANSPARENT.tag);
