@@ -1,0 +1,22 @@
+﻿{
+    "variants":  {
+                     "type=double,waterlogged=false":  {
+                                                           "model":  "createdeco:block/short_red_brick_slab_double"
+                                                       },
+                     "type=bottom,waterlogged=false":  {
+                                                           "model":  "createdeco:block/short_red_brick_slab"
+                                                       },
+                     "type=double,waterlogged=true":  {
+                                                          "model":  "createdeco:block/short_red_brick_slab_double"
+                                                      },
+                     "type=top,waterlogged=false":  {
+                                                        "model":  "createdeco:block/short_red_brick_slab_top"
+                                                    },
+                     "type=bottom,waterlogged=true":  {
+                                                          "model":  "createdeco:block/short_red_brick_slab"
+                                                      },
+                     "type=top,waterlogged=true":  {
+                                                       "model":  "createdeco:block/short_red_brick_slab_top"
+                                                   }
+                 }
+}

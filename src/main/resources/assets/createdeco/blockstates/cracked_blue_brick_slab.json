@@ -1,0 +1,22 @@
+﻿{
+    "variants":  {
+                     "type=double,waterlogged=false":  {
+                                                           "model":  "createdeco:block/cracked_blue_brick_slab_double"
+                                                       },
+                     "type=double,waterlogged=true":  {
+                                                          "model":  "createdeco:block/cracked_blue_brick_slab_double"
+                                                      },
+                     "type=bottom,waterlogged=false":  {
+                                                           "model":  "createdeco:block/cracked_blue_brick_slab"
+                                                       },
+                     "type=bottom,waterlogged=true":  {
+                                                          "model":  "createdeco:block/cracked_blue_brick_slab"
+                                                      },
+                     "type=top,waterlogged=true":  {
+                                                       "model":  "createdeco:block/cracked_blue_brick_slab_top"
+                                                   },
+                     "type=top,waterlogged=false":  {
+                                                        "model":  "createdeco:block/cracked_blue_brick_slab_top"
+                                                    }
+                 }
+}

@@ -1,15 +1,16 @@
 package com.github.talrey.createdeco.blocks;
 
 import com.github.talrey.createdeco.ItemRegistry;
-import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
+import com.zurrtum.create.foundation.block.ProperWaterloggedBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -82,10 +83,10 @@ public class CoinStackBlock extends Block implements ProperWaterloggedBlock {
   }
 
   @Override
-  public BlockState updateShape (BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn, BlockPos currentPos, BlockPos facingPos) {
-    updateWater(worldIn, stateIn, currentPos);
+  public BlockState updateShape (BlockState stateIn, LevelReader worldIn, ScheduledTickAccess scheduledTickAccess, BlockPos currentPos, Direction facing, BlockPos facingPos, BlockState facingState, RandomSource random) {
+    updateWater(worldIn, scheduledTickAccess, stateIn, currentPos);
     if (facing == Direction.DOWN && !canSupportCenter(worldIn, facingPos, Direction.UP)) return Blocks.AIR.defaultBlockState();
-    return super.updateShape(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+    return super.updateShape(stateIn, worldIn, scheduledTickAccess, currentPos, facing, facingPos, facingState, random);
   }
 
   @Nullable
@@ -100,7 +101,7 @@ public class CoinStackBlock extends Block implements ProperWaterloggedBlock {
   }
 
   @Override
-  public ItemStack getCloneItemStack (LevelReader level, BlockPos pos, BlockState state) {
+  protected ItemStack getCloneItemStack (LevelReader level, BlockPos pos, BlockState state, boolean includeData) {
     return ItemRegistry.COINSTACKS.containsKey(material)
       ? ItemRegistry.COINSTACKS.get(material).asStack()
       : new ItemStack(Items.AIR);

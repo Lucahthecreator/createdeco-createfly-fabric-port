@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "all":  "createdeco:block/palettes/bricks/pearl/corner_pearl_bricks"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

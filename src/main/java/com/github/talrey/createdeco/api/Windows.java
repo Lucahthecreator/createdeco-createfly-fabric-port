@@ -3,13 +3,13 @@ package com.github.talrey.createdeco.api;
 import com.github.talrey.createdeco.BlockStateGenerator;
 import com.github.talrey.createdeco.CreateDecoMod;
 import com.github.talrey.createdeco.connected.SpriteShifts;
-import com.simibubi.create.content.decoration.palettes.ConnectedGlassPaneBlock;
-import com.simibubi.create.content.decoration.palettes.GlassPaneBlock;
-import com.simibubi.create.content.decoration.palettes.WindowBlock;
-import com.simibubi.create.foundation.block.connected.CTSpriteShiftEntry;
-import com.simibubi.create.foundation.block.connected.GlassPaneCTBehaviour;
-import com.simibubi.create.foundation.block.connected.HorizontalCTBehaviour;
-import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.zurrtum.create.content.decoration.palettes.ConnectedGlassPaneBlock;
+import com.zurrtum.create.content.decoration.palettes.GlassPaneBlock;
+import com.zurrtum.create.content.decoration.palettes.WindowBlock;
+import com.zurrtum.create.client.foundation.block.connected.CTSpriteShiftEntry;
+import com.zurrtum.create.client.foundation.block.connected.GlassPaneCTBehaviour;
+import com.zurrtum.create.client.foundation.block.connected.HorizontalCTBehaviour;
+import com.zurrtum.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
@@ -18,13 +18,12 @@ import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
 import com.tterrag.registrate.util.nullness.NonNullConsumer;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -39,7 +38,7 @@ import net.neoforged.neoforge.common.Tags;
 import java.util.Locale;
 import java.util.function.Supplier;
 
-import static com.simibubi.create.foundation.data.CreateRegistrate.connectedTextures;
+import static com.zurrtum.create.foundation.data.CreateRegistrate.connectedTextures;
 
 public class Windows {
   private static BlockBehaviour.Properties glassProperties(BlockBehaviour.Properties p) {
@@ -58,22 +57,22 @@ public class Windows {
   }
 
   public static BlockEntry<WindowBlock> metalWindowBlock(String metal) {
-    return metalWindowBlock(metal, () -> RenderType::cutoutMipped, false);
+    return metalWindowBlock(metal, () -> null, false);
   }
 
   public static BlockEntry<WindowBlock> metalWindowBlock(String metal,
-                                                          Supplier<Supplier<RenderType>> renderType, boolean translucent) {
+                                                          Supplier<Supplier<?>> renderType, boolean translucent) {
     String name = metal + "_window";
-    NonNullFunction<String, ResourceLocation> end_texture = $ -> CreateDecoMod.id(palettesDir() + $);
-    NonNullFunction<String, ResourceLocation> side_texture = n -> CreateDecoMod.id(palettesDir() + n);
+    NonNullFunction<String, Identifier> end_texture = $ -> CreateDecoMod.id(palettesDir() + $);
+    NonNullFunction<String, Identifier> side_texture = n -> CreateDecoMod.id(palettesDir() + n);
     return windowBlock(name, () -> SpriteShifts.METAL_WINDOWS.get(metal), renderType,
         translucent, end_texture, side_texture, Blocks.GLASS::defaultMapColor);
   }
 
 
   public static BlockEntry<WindowBlock> windowBlock(String name,
-                                                    Supplier<CTSpriteShiftEntry> ct, Supplier<Supplier<RenderType>> renderType, boolean translucent,
-                                                    NonNullFunction<String, ResourceLocation> endTexture, NonNullFunction<String, ResourceLocation> sideTexture,
+                                                    Supplier<CTSpriteShiftEntry> ct, Supplier<Supplier<?>> renderType, boolean translucent,
+                                                    NonNullFunction<String, Identifier> endTexture, NonNullFunction<String, Identifier> sideTexture,
                                                     Supplier<MapColor> color) {
     return CreateDecoMod.REGISTRATE.block(name.toLowerCase(Locale.ROOT).replace(" ", "_"), p -> new WindowBlock(p, translucent))
       //.onRegister(connectedTextures(() -> new HorizontalCTBehaviour(ct.get())))
@@ -81,15 +80,7 @@ public class Windows {
         new HorizontalCTBehaviour(SpriteShifts.METAL_WINDOWS.get(name.replace("_window", ""))
       )))
       .addLayer(renderType)
-      .recipe((c, p) -> ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, c.get(), 2)
-        .pattern(" # ")
-        .pattern("#X#")
-        .define('#', Ingredient.of(CreateDecoTags.ingot(name.replace("_window", ""))))
-        .define('X', Tags.Items.GLASS_BLOCKS_COLORLESS)
-        .unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(
-          ItemPredicate.Builder.item().of(CreateDecoTags.ingot(name.replace("_window", "")))
-        ))
-        .save(p))
+      .recipe((c, p) -> {})
       .initialProperties(() -> Blocks.GLASS)
       .properties(Windows::glassProperties)
       .properties(p -> p.mapColor(color.get()))
@@ -103,21 +94,21 @@ public class Windows {
 
   public static BlockEntry<ConnectedGlassPaneBlock> metalWindowPane(String metal,
                                                                      Supplier<? extends Block> parent) {
-    return metalWindowPane(metal, parent, () -> RenderType::cutoutMipped);
+    return metalWindowPane(metal, parent, () -> null);
   }
 
   public static BlockEntry<ConnectedGlassPaneBlock> metalWindowPane(String metal,
-                                                                     Supplier<? extends Block> parent, Supplier<Supplier<RenderType>> renderType) {
+                                                                     Supplier<? extends Block> parent, Supplier<Supplier<?>> renderType) {
     String name = metal.toLowerCase(Locale.ROOT).replace(" ", "_") + "_window";
-    ResourceLocation topTexture = CreateDecoMod.id(palettesDir() + name + "_end");
-    ResourceLocation sideTexture = CreateDecoMod.id(palettesDir() + name);
+    Identifier topTexture = CreateDecoMod.id(palettesDir() + name + "_end");
+    Identifier sideTexture = CreateDecoMod.id(palettesDir() + name);
     return connectedGlassPane(name, parent, () -> SpriteShifts.METAL_WINDOWS.get(metal), sideTexture,
         sideTexture, topTexture, renderType);
   }
 
   private static BlockEntry<ConnectedGlassPaneBlock> connectedGlassPane(String name, Supplier<? extends Block> parent,
-                                                                        Supplier<CTSpriteShiftEntry> ctshift, ResourceLocation sideTexture, ResourceLocation itemSideTexture,
-                                                                        ResourceLocation topTexture, Supplier<Supplier<RenderType>> renderType) {
+                                                                        Supplier<CTSpriteShiftEntry> ctshift, Identifier sideTexture, Identifier itemSideTexture,
+                                                                        Identifier topTexture, Supplier<Supplier<?>> renderType) {
     NonNullConsumer<? super ConnectedGlassPaneBlock> connectedTextures =
         connectedTextures(() -> new GlassPaneCTBehaviour(ctshift.get()));
     String CGPparents = "block/connected_glass_pane/";
@@ -128,8 +119,8 @@ public class Windows {
   }
 
   private static <G extends GlassPaneBlock> BlockEntry<G> glassPane(String name, Supplier<? extends Block> parent,
-                                                                    ResourceLocation sideTexture, ResourceLocation topTexture, NonNullFunction<BlockBehaviour.Properties, G> factory,
-                                                                    Supplier<Supplier<RenderType>> renderType, NonNullConsumer<? super G> connectedTextures,
+                                                                    Identifier sideTexture, Identifier topTexture, NonNullFunction<BlockBehaviour.Properties, G> factory,
+                                                                    Supplier<Supplier<?>> renderType, NonNullConsumer<? super G> connectedTextures,
                                                                     NonNullBiConsumer<DataGenContext<Block, G>, RegistrateBlockstateProvider> stateProvider) {
     name += "_pane";
 
@@ -141,7 +132,7 @@ public class Windows {
         .defaultMapColor()))
       .blockstate(stateProvider)
       .tag(Tags.Blocks.GLASS_PANES)
-      .recipe((c, p) -> ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, c.get(), 16)
+      .recipe((c, p) -> ShapedRecipeBuilder.shaped(null, RecipeCategory.BUILDING_BLOCKS, c.get(), 16)
         .pattern("###")
         .pattern("###")
         .define('#', parent.get())

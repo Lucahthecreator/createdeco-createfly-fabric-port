@@ -1,0 +1,7 @@
+﻿{
+    "textures":  {
+                     "end":  "createdeco:block/netherite_coinstack_top",
+                     "side":  "createdeco:block/netherite_coinstack_side"
+                 },
+    "parent":  "minecraft:block/cube_column"
+}

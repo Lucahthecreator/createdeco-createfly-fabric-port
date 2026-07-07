@@ -1,10 +1,11 @@
 package com.github.talrey.createdeco.blocks;
 
-import com.simibubi.create.content.equipment.wrench.IWrenchable;
-import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
+import com.zurrtum.create.content.equipment.wrench.IWrenchable;
+import com.zurrtum.create.foundation.block.ProperWaterloggedBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -22,6 +23,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -70,7 +72,7 @@ public class CatwalkRailingBlock extends Block implements IWrenchable, ProperWat
   @Override
   public InteractionResult onSneakWrenched(BlockState state, UseOnContext context) {
     BlockPos pos   = context.getClickedPos();
-    Vec3 subbox    = context.getClickLocation().subtract(pos.getCenter());
+    Vec3 subbox    = context.getClickLocation().subtract(Vec3.atCenterOf(pos));
     Direction face = context.getClickedFace();
     Level level    = context.getLevel();
     Player player  = context.getPlayer();
@@ -178,19 +180,19 @@ public class CatwalkRailingBlock extends Block implements IWrenchable, ProperWat
   }
 
   @Override
-  public boolean canPlaceLiquid(@Nullable Player playerEntity, BlockGetter world, BlockPos pos, BlockState state, Fluid fluid) {
+  public boolean canPlaceLiquid(@Nullable LivingEntity playerEntity, BlockGetter world, BlockPos pos, BlockState state, Fluid fluid) {
     return !state.getValue(BlockStateProperties.WATERLOGGED) && fluid == Fluids.WATER;
   }
 
   // used to ensure the block doesn't leave a ghost behind if all 4 sides are gone
   @Override
-  public void neighborChanged (
+  protected void neighborChanged (
           BlockState state, Level level, BlockPos pos,
-          Block neighborBlock, BlockPos neighborPos, boolean movedByPiston
+          Block neighborBlock, Orientation orientation, boolean movedByPiston
   ) {
 
     if (isEmpty(state)) level.setBlock(pos, Blocks.AIR.defaultBlockState(), 0);
-    super.neighborChanged(state, level, pos, neighborBlock, neighborPos, movedByPiston);
+    super.neighborChanged(state, level, pos, neighborBlock, orientation, movedByPiston);
   }
 
   public static boolean isRailing (ItemStack test) {

@@ -5,17 +5,17 @@ import com.github.talrey.createdeco.CreateDecoMod;
 import com.github.talrey.createdeco.blocks.ShippingContainerBlock;
 import com.github.talrey.createdeco.connected.ShippingContainerCTBehavior;
 import com.github.talrey.createdeco.items.ShippingContainerBlockItem;
-import com.simibubi.create.AllBlocks;
-import com.simibubi.create.AllItems;
-import com.simibubi.create.AllMountedStorageTypes;
-import com.simibubi.create.api.contraption.storage.item.MountedItemStorageType;
-import com.simibubi.create.foundation.data.CreateRegistrate;
-import com.simibubi.create.foundation.data.SharedProperties;
+import com.zurrtum.create.AllBlocks;
+import com.zurrtum.create.AllItems;
+import com.zurrtum.create.AllMountedStorageTypes;
+import com.zurrtum.create.api.contraption.storage.item.MountedItemStorageType;
+import com.zurrtum.create.foundation.data.CreateRegistrate;
+import com.zurrtum.create.foundation.data.SharedProperties;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
@@ -32,8 +32,8 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-import static com.simibubi.create.foundation.data.CreateRegistrate.connectedTextures;
-import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
+import static com.zurrtum.create.foundation.data.CreateRegistrate.connectedTextures;
+import static com.zurrtum.create.foundation.data.TagGen.pickaxeOnly;
 
 public class ShippingContainers {
   public static BlockBuilder<ShippingContainerBlock,?> build (
@@ -55,29 +55,28 @@ public class ShippingContainers {
       .lang(visName + " Shipping Container")
 
       .blockstate((ctx, prov) -> BlockStateGenerator.shippingContainer(CreateDecoMod.REGISTRATE, color, ctx, prov))
-      .transform(MountedItemStorageType.mountedItemStorage(AllMountedStorageTypes.VAULT))
       .onRegister(connectedTextures(ShippingContainerCTBehavior::new));
   }
 
   public static <T extends Block> void recipeCrafting (DyeColor color, DataGenContext<Block, T> ctx, RegistrateRecipeProvider prov) {
-    ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ctx.get())
+    ShapedRecipeBuilder.shaped(null, RecipeCategory.DECORATIONS, ctx.get())
       .pattern("CS")
       .pattern("SB")
       .define('S', AllItems.IRON_SHEET)
-      .define('C', DyeItem.byColor(color))
+      .define('C', DyeItems.byColor(color))
       .define('B', Items.BARREL)
       .unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(
-        ItemPredicate.Builder.item().of(AllItems.IRON_SHEET).build()
+        ItemPredicate.Builder.item().of(null, AllItems.IRON_SHEET).build()
       ))
       .save(prov, color.getName() + "_shipping_container");
   }
 
   public static <T extends Block> void recipeDyeing (DyeColor color, DataGenContext<Block, T> ctx, RegistrateRecipeProvider prov) {
-    ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, ctx.get())
-      .requires(DyeItem.byColor(color))
+    ShapelessRecipeBuilder.shapeless(null, RecipeCategory.DECORATIONS, ctx.get())
+      .requires(DyeItems.byColor(color))
       .requires(AllBlocks.ITEM_VAULT.asItem())
       .unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(
-        ItemPredicate.Builder.item().of(AllBlocks.ITEM_VAULT.asItem()).build()
+        ItemPredicate.Builder.item().of(null, AllBlocks.ITEM_VAULT.asItem()).build()
       ))
       .save(prov, color.getName() + "_shipping_container_from_dyeing_vaults");
   }

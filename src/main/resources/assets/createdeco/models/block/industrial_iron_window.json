@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "all":  "createdeco:block/palettes/windows/industrial_iron_window"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

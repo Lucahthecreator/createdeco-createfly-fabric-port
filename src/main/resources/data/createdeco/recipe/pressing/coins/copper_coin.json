@@ -1,13 +1,9 @@
-{
-  "type": "create:pressing",
-  "ingredients": [
-    {
-      "item": "create:copper_nugget"
-    }
-  ],
-  "results": [
-    {
-      "id": "createdeco:copper_coin"
-    }
-  ]
+﻿{
+    "type":  "create:pressing",
+    "ingredient":  "minecraft:copper_ingot",
+    "results":  [
+                    {
+                        "id":  "createdeco:copper_coin"
+                    }
+                ]
 }

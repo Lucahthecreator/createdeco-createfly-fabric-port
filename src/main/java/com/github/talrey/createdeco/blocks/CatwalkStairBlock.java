@@ -1,11 +1,12 @@
 package com.github.talrey.createdeco.blocks;
 
 import com.github.talrey.createdeco.BlockRegistry;
-import com.simibubi.create.content.equipment.wrench.IWrenchable;
-import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
+import com.zurrtum.create.content.equipment.wrench.IWrenchable;
+import com.zurrtum.create.foundation.block.ProperWaterloggedBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -98,7 +99,7 @@ public class CatwalkStairBlock extends Block implements IWrenchable, ProperWater
     FluidState fluid = ctx.getLevel().getFluidState(ctx.getClickedPos());
 
     return defaultBlockState()
-      .setValue(BlockStateProperties.HORIZONTAL_FACING, facing.getOpposite())
+      .setValue(BlockStateProperties.HORIZONTAL_FACING, facing)
       .setValue(BlockStateProperties.WATERLOGGED, fluid.getType() == Fluids.WATER);
   }
 
@@ -112,7 +113,7 @@ public class CatwalkStairBlock extends Block implements IWrenchable, ProperWater
   }
 
   @Override
-  public boolean canPlaceLiquid(@Nullable Player playerEntity, BlockGetter world, BlockPos pos, BlockState state, Fluid fluid) {
+  public boolean canPlaceLiquid(@Nullable LivingEntity playerEntity, BlockGetter world, BlockPos pos, BlockState state, Fluid fluid) {
     return !state.getValue(BlockStateProperties.WATERLOGGED) && fluid == Fluids.WATER;
   }
 
@@ -151,7 +152,7 @@ public class CatwalkStairBlock extends Block implements IWrenchable, ProperWater
   @Override
   public InteractionResult onSneakWrenched (BlockState state, UseOnContext context) {
     BlockPos pos   = context.getClickedPos();
-    Vec3 subbox    = context.getClickLocation().subtract(pos.getCenter());
+    Vec3 subbox    = context.getClickLocation().subtract(Vec3.atCenterOf(pos));
     Level level    = context.getLevel();
     Player player  = context.getPlayer();
 

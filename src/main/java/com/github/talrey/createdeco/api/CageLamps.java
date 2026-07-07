@@ -3,17 +3,17 @@ package com.github.talrey.createdeco.api;
 import com.github.talrey.createdeco.BlockStateGenerator;
 import com.github.talrey.createdeco.CreateDecoMod;
 import com.github.talrey.createdeco.blocks.CageLampBlock;
-import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.zurrtum.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
@@ -29,19 +29,19 @@ import java.util.function.Supplier;
 
 public class CageLamps {
 
-  public static final ResourceLocation YELLOW_ON  = CreateDecoMod.id( "block/palettes/cage_lamp/light_default");
-  public static final ResourceLocation YELLOW_OFF = CreateDecoMod.id( "block/palettes/cage_lamp/light_default_off");
-  public static final ResourceLocation RED_ON     = CreateDecoMod.id( "block/palettes/cage_lamp/light_redstone");
-  public static final ResourceLocation RED_OFF    = CreateDecoMod.id( "block/palettes/cage_lamp/light_redstone_off");
-  public static final ResourceLocation GREEN_ON   = CreateDecoMod.id( "block/palettes/cage_lamp/light_green");
-  public static final ResourceLocation GREEN_OFF  = CreateDecoMod.id( "block/palettes/cage_lamp/light_green_off");
-  public static final ResourceLocation BLUE_ON    = CreateDecoMod.id( "block/palettes/cage_lamp/light_soul");
-  public static final ResourceLocation BLUE_OFF   = CreateDecoMod.id( "block/palettes/cage_lamp/light_soul_off");
+  public static final Identifier YELLOW_ON  = CreateDecoMod.id( "block/palettes/cage_lamp/light_default");
+  public static final Identifier YELLOW_OFF = CreateDecoMod.id( "block/palettes/cage_lamp/light_default_off");
+  public static final Identifier RED_ON     = CreateDecoMod.id( "block/palettes/cage_lamp/light_redstone");
+  public static final Identifier RED_OFF    = CreateDecoMod.id( "block/palettes/cage_lamp/light_redstone_off");
+  public static final Identifier GREEN_ON   = CreateDecoMod.id( "block/palettes/cage_lamp/light_green");
+  public static final Identifier GREEN_OFF  = CreateDecoMod.id( "block/palettes/cage_lamp/light_green_off");
+  public static final Identifier BLUE_ON    = CreateDecoMod.id( "block/palettes/cage_lamp/light_soul");
+  public static final Identifier BLUE_OFF   = CreateDecoMod.id( "block/palettes/cage_lamp/light_soul_off");
 
   private static ShapedRecipeBuilder cageLampRecipeBuilder (
     ItemLike item, Supplier<Item> light
   ) {
-    return ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, item)
+    return ShapedRecipeBuilder.shaped(null, RecipeCategory.DECORATIONS, item)
       .pattern("n")
       .pattern("t")
       .pattern("p")
@@ -73,7 +73,7 @@ public class CageLamps {
       else {
         cageLampRecipeBuilder(ctx.get(), light).unlockedBy("has_item",
             InventoryChangeTrigger.TriggerInstance.hasItems(
-              ItemPredicate.Builder.item().of(CreateDecoTags.plate(metalName)).build()
+              ItemPredicate.Builder.item().of(null, CreateDecoTags.plate(metalName)).build()
             ))
           .define('n', CreateDecoTags.nugget(metalName))
           .define('p', CreateDecoTags.plate(metalName))
@@ -83,13 +83,12 @@ public class CageLamps {
   }
 
   public static BlockBuilder<CageLampBlock, ?> build (
-    CreateRegistrate reg, String name, DyeColor color, ResourceLocation cage, ResourceLocation lampOn, ResourceLocation lampOff
+    CreateRegistrate reg, String name, DyeColor color, Identifier cage, Identifier lampOn, Identifier lampOff
   ) {
     return reg.block(color.getName().toLowerCase(Locale.ROOT) + "_" + name.toLowerCase(Locale.ROOT).replaceAll(" ", "_") + "_lamp",
         (p)-> new CageLampBlock(p, new Vector3f(0.3f, 0.3f, 0f)))
       .properties(props-> props.noOcclusion().strength(0.5f).sound(SoundType.LANTERN).lightLevel((state)-> state.getValue(BlockStateProperties.LIT)?15:0))
       .blockstate((ctx,prov)-> BlockStateGenerator.cageLamp(cage, lampOn, lampOff, ctx, prov))
-      .addLayer(()-> RenderType::cutoutMipped)
       .tag(BlockTags.MINEABLE_WITH_PICKAXE)
       .lang(color.name().charAt(0) + color.name().substring(1).toLowerCase() + " " + name + " Cage Lamp")
       .simpleItem();

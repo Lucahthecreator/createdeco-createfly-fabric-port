@@ -1,9 +1,9 @@
 package com.github.talrey.createdeco.items;
 
 import com.github.talrey.createdeco.blocks.CatwalkBlock;
-import net.createmod.catnip.placement.IPlacementHelper;
-import net.createmod.catnip.placement.PlacementHelpers;
-import net.createmod.catnip.placement.PlacementOffset;
+import com.zurrtum.create.catnip.placement.IPlacementHelper;
+import com.zurrtum.create.catnip.placement.PlacementHelpers;
+import com.zurrtum.create.catnip.placement.PlacementOffset;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -38,7 +38,7 @@ public class CatwalkBlockItem extends BlockItem {
     IPlacementHelper helper = PlacementHelpers.get(placementHelperID);
     BlockHitResult ray = new BlockHitResult(ctx.getClickLocation(), face, pos, true);
     if (helper.matchesState(state) && player != null) {
-      return helper.getOffset(player, world, state, pos, ray).placeInWorld(world, this, player, ctx.getHand(), ray).result();
+      return helper.getOffset(player, world, state, pos, ray).placeInWorld(world, this, player, ctx.getHand());
     }
     return super.useOn(ctx);
   }
@@ -59,7 +59,7 @@ public class CatwalkBlockItem extends BlockItem {
     public PlacementOffset getOffset(Player player, Level world, BlockState state, BlockPos pos, BlockHitResult ray) {
       Direction face = ray.getDirection();
       if (face.getAxis() != Direction.Axis.Y) {
-        return PlacementOffset.success(pos.offset(face.getNormal()), offsetState -> offsetState);
+        return PlacementOffset.success(pos.offset(face.getUnitVec3i()), offsetState -> offsetState);
       }
       List<Direction> dirs = IPlacementHelper.orderedByDistanceExceptAxis(pos, ray.getLocation(), Direction.Axis.Y);
       for (Direction dir : dirs) {

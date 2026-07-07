@@ -2,9 +2,9 @@ package com.github.talrey.createdeco.api;
 
 import com.github.talrey.createdeco.BlockStateGenerator;
 import com.github.talrey.createdeco.blocks.FacadeBlock;
-import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.zurrtum.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.BlockBuilder;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.SoundType;
 
@@ -24,7 +24,6 @@ public class Facades {
         .isViewBlocking((a, b, c) -> false)
         .isSuffocating((a, b, c) -> false)
       )
-      .addLayer(() -> RenderType::translucent)
       .item()
       .build()
       .tag(BlockTags.MINEABLE_WITH_PICKAXE)

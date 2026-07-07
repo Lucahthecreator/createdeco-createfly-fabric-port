@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "layer0":  "createdeco:item/locked_zinc_door"
+                 },
+    "parent":  "minecraft:item/generated"
+}

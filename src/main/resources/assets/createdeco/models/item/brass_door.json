@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "layer0":  "createdeco:item/brass_door"
+                 },
+    "parent":  "minecraft:item/generated"
+}

@@ -41,7 +41,7 @@ public class CoinStackItem extends Item {
       return true;
     }
     else {
-      BlockPos offset = ctx.getClickedPos().offset(ctx.getClickedFace().getNormal());
+      BlockPos offset = ctx.getClickedPos().offset(ctx.getClickedFace().getUnitVec3i());
       target = ctx.getLevel().getBlockState(offset);
       if (target.canBeReplaced(bictx)) {
         if (!CoinStackBlock.canSurvive(ctx.getLevel(), offset)) return false;

@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "layer0":  "createdeco:item/copper_coinstack"
+                 },
+    "parent":  "minecraft:item/generated"
+}

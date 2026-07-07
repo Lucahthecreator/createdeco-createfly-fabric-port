@@ -2,13 +2,13 @@ package com.github.talrey.createdeco.api;
 
 import com.github.talrey.createdeco.BlockStateGenerator;
 import com.github.talrey.createdeco.blocks.MeshFenceBlock;
-import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.zurrtum.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.tags.BlockTags;
@@ -24,13 +24,13 @@ public class MeshFences {
       String metal,
       DataGenContext<Block, T> ctx, RegistrateRecipeProvider prov
   ) {
-    ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ctx.get(), 16)
+    ShapedRecipeBuilder.shaped(null, RecipeCategory.DECORATIONS, ctx.get(), 16)
         .pattern("psp")
         .pattern("psp")
         .define('p', CreateDecoTags.plate(metal))
         .define('s', Items.STRING)
         .unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(
-            ItemPredicate.Builder.item().of(CreateDecoTags.plate(metal)).build()
+            ItemPredicate.Builder.item().of(null, CreateDecoTags.plate(metal)).build()
         ))
         .save(prov);
   }
@@ -40,10 +40,9 @@ public class MeshFences {
       .properties(props-> props.strength(5, 6).requiresCorrectToolForDrops()
         .sound(SoundType.CHAIN)
       )
-      .addLayer(()-> RenderType::translucent)
       .tag(BlockTags.FENCES)
       .tag(BlockTags.MINEABLE_WITH_PICKAXE)
-      .item().tag(ItemTags.FENCES)
+      .item()
       .properties(p -> (metal.equals("Netherite")) ? p.fireResistant() : p)
       .model((ctx,prov)-> prov.singleTexture(
         ctx.getName(), prov.mcLoc("item/generated"),

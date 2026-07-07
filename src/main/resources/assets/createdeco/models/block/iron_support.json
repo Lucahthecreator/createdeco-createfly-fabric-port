@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "all":  "createdeco:block/palettes/support/iron_support"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

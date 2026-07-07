@@ -2,10 +2,11 @@ package com.github.talrey.createdeco.api;
 
 import com.github.talrey.createdeco.CreateDecoMod;
 import com.github.talrey.createdeco.ItemRegistry;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
@@ -78,15 +79,11 @@ public class CreateDecoTags {
   }
 
   private static TagKey<Item> of (String namespace, String path) {
-    return ItemTags.create(
-      ResourceLocation.fromNamespaceAndPath(namespace, path)
-    );
+    return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(namespace, path));
   }
 
   private static TagKey<Block> ofBlock (String namespace, String path) {
-    return BlockTags.create(
-      ResourceLocation.fromNamespaceAndPath(namespace, path)
-    );
+    return TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(namespace, path));
   }
 
   private static TagKey<Item> commonItem (String path) {

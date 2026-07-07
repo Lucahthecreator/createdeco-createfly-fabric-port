@@ -1,0 +1,9 @@
+﻿{
+    "multipart":  [
+                      {
+                          "apply":  {
+                                        "model":  "createdeco:block/zinc_ladder"
+                                    }
+                      }
+                  ]
+}

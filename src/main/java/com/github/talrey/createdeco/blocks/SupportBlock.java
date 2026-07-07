@@ -1,17 +1,17 @@
 package com.github.talrey.createdeco.blocks;
 
 import com.mojang.serialization.MapCodec;
-import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
-import com.simibubi.create.foundation.placement.PoleHelper;
-import net.createmod.catnip.placement.IPlacementHelper;
-import net.createmod.catnip.placement.PlacementHelpers;
-import net.createmod.catnip.placement.PlacementOffset;
+import com.zurrtum.create.foundation.block.ProperWaterloggedBlock;
+import com.zurrtum.create.foundation.placement.PoleHelper;
+import com.zurrtum.create.catnip.placement.IPlacementHelper;
+import com.zurrtum.create.catnip.placement.PlacementHelpers;
+import com.zurrtum.create.catnip.placement.PlacementOffset;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -83,15 +83,15 @@ public class SupportBlock extends DirectionalBlock implements ProperWaterloggedB
   }
 
   @Override
-  protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult ray) {
+  protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult ray) {
     ItemStack heldItem = player.getItemInHand(hand);
 
     IPlacementHelper placementHelper = PlacementHelpers.get(placementHelperId);
     if (!placementHelper.matchesItem(heldItem))
-      return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+      return InteractionResult.PASS;
 
     return placementHelper.getOffset(player, world, state, pos, ray)
-      .placeInWorld(world, ((BlockItem) heldItem.getItem()), player, hand, ray);
+      .placeInWorld(world, ((BlockItem) heldItem.getItem()), player, hand);
   }
 
   @Nullable
@@ -105,7 +105,7 @@ public class SupportBlock extends DirectionalBlock implements ProperWaterloggedB
   }
 
   @Override
-  public boolean canPlaceLiquid(@Nullable Player playerEntity, BlockGetter world, BlockPos pos, BlockState state, Fluid fluid) {
+  public boolean canPlaceLiquid(@Nullable LivingEntity playerEntity, BlockGetter world, BlockPos pos, BlockState state, Fluid fluid) {
     return !state.getValue(BlockStateProperties.WATERLOGGED) && fluid == Fluids.WATER;
   }
 

@@ -1,7 +1,7 @@
 package com.github.talrey.createdeco;
 
-import com.simibubi.create.foundation.data.CreateRegistrate;
-import net.minecraft.resources.ResourceLocation;
+import com.zurrtum.create.foundation.data.CreateRegistrate;
+import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +17,7 @@ public class CreateDecoMod {
     BlockRegistry.init();
   }
 
-  public static ResourceLocation id(String path) {
-        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+  public static Identifier id(String path) {
+        return Identifier.fromNamespaceAndPath(MOD_ID, path);
     }
 }

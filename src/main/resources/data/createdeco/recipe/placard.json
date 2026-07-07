@@ -1,17 +1,13 @@
-{
-  "type": "minecraft:crafting_shapeless",
-  "category": "misc",
-  "group": "dye_placard",
-  "ingredients": [
-    {
-      "tag": "createdeco:placards"
-    },
-    {
-      "id": "minecraft:white_dye"
-    }
-  ],
-  "result": {
-    "count": 1,
-    "id": "create:placard"
-  }
+﻿{
+    "type":  "minecraft:crafting_shapeless",
+    "category":  "misc",
+    "group":  "dye_placard",
+    "ingredients":  [
+                        "#createdeco:placards",
+                        "minecraft:white_dye"
+                    ],
+    "result":  {
+                   "count":  1,
+                   "id":  "create:placard"
+               }
 }

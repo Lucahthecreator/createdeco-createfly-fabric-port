@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "layer0":  "createdeco:block/palettes/decals/decal_electrical"
+                 },
+    "parent":  "minecraft:item/generated"
+}

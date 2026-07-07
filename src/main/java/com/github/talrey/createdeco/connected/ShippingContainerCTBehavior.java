@@ -1,14 +1,14 @@
 package com.github.talrey.createdeco.connected;
 
 import com.github.talrey.createdeco.blocks.ShippingContainerBlock;
-import com.simibubi.create.api.connectivity.ConnectivityHandler;
-import com.simibubi.create.foundation.block.connected.CTSpriteShiftEntry;
-import com.simibubi.create.foundation.block.connected.ConnectedTextureBehaviour;
+import com.zurrtum.create.api.connectivity.ConnectivityHandler;
+import com.zurrtum.create.client.foundation.block.connected.CTSpriteShiftEntry;
+import com.zurrtum.create.client.foundation.block.connected.ConnectedTextureBehaviour;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
@@ -70,6 +70,9 @@ public class ShippingContainerCTBehavior extends ConnectedTextureBehaviour.Base 
     BlockState state, BlockState other, BlockAndTintGetter reader, BlockPos pos,
     BlockPos otherPos, Direction face
   ) {
-    return state == other && ConnectivityHandler.isConnected(reader, pos, otherPos);
+    return ShippingContainerBlock.isVault(other)
+      && ShippingContainerBlock.getColor(state) == ShippingContainerBlock.getColor(other)
+      && ShippingContainerBlock.getVaultBlockAxis(state) == ShippingContainerBlock.getVaultBlockAxis(other)
+      && ConnectivityHandler.isConnected(reader, pos, otherPos);
   }
 }

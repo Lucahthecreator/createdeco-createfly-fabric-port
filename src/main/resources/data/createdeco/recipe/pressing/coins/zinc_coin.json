@@ -1,13 +1,9 @@
-{
-  "type": "create:pressing",
-  "ingredients": [
-    {
-      "item": "create:zinc_nugget"
-    }
-  ],
-  "results": [
-    {
-      "id": "createdeco:zinc_coin"
-    }
-  ]
+﻿{
+    "type":  "create:pressing",
+    "ingredient":  "create:zinc_nugget",
+    "results":  [
+                    {
+                        "id":  "createdeco:zinc_coin"
+                    }
+                ]
 }

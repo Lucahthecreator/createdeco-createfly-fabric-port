@@ -1,13 +1,9 @@
-{
-  "type": "create:pressing",
-  "ingredients": [
-    {
-      "item": "create:brass_nugget"
-    }
-  ],
-  "results": [
-    {
-      "id": "createdeco:brass_coin"
-    }
-  ]
+﻿{
+    "type":  "create:pressing",
+    "ingredient":  "create:brass_nugget",
+    "results":  [
+                    {
+                        "id":  "createdeco:brass_coin"
+                    }
+                ]
 }

@@ -1,0 +1,7 @@
+﻿{
+    "textures":  {
+                     "end":  "createdeco:block/copper_coinstack_top",
+                     "side":  "createdeco:block/copper_coinstack_side"
+                 },
+    "parent":  "minecraft:block/cube_column"
+}

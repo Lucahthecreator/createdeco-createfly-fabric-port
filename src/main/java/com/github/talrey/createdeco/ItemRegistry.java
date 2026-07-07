@@ -3,8 +3,8 @@ package com.github.talrey.createdeco;
 import com.github.talrey.createdeco.api.Coins;
 import com.github.talrey.createdeco.api.CreateDecoTags;
 import com.github.talrey.createdeco.items.CoinStackItem;
-import com.simibubi.create.AllBlocks;
-import com.simibubi.create.AllItems;
+import com.zurrtum.create.AllBlocks;
+import com.zurrtum.create.AllItems;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -34,16 +34,16 @@ public class ItemRegistry {
     CreateDecoMod.REGISTRATE.addLang("itemGroup", CreateDecoMod.id(CreativeTabs.PROPS_KEY), "Create Deco Props");
     CreateDecoMod.REGISTRATE.addLang("itemGroup", CreateDecoMod.id(CreativeTabs.BRICKS_KEY), "Create Deco Bricks");
 
-    METAL_TYPES.put("Andesite", (str) -> AllItems.ANDESITE_ALLOY.get());
-    METAL_TYPES.put("Zinc", (str) -> AllItems.ZINC_INGOT.get());
+    METAL_TYPES.put("Andesite", (str) -> AllItems.ANDESITE_ALLOY);
+    METAL_TYPES.put("Zinc", (str) -> AllItems.ZINC_INGOT);
     METAL_TYPES.put("Copper", (str) -> Items.COPPER_INGOT);
-    METAL_TYPES.put("Brass", (str) -> AllItems.BRASS_INGOT.get());
+    METAL_TYPES.put("Brass", (str) -> AllItems.BRASS_INGOT);
     METAL_TYPES.put("Iron", (str) -> Items.IRON_INGOT);
     METAL_TYPES.put("Industrial Iron", (str) -> INDUSTRIAL_IRON_INGOT.get());
 
-    COIN_METALS.put("Zinc", (str) -> AllItems.ZINC_INGOT.get());
+    COIN_METALS.put("Zinc", (str) -> AllItems.ZINC_INGOT);
     COIN_METALS.put("Copper", (str) -> Items.COPPER_INGOT);
-    COIN_METALS.put("Brass", (str) -> AllItems.BRASS_INGOT.get());
+    COIN_METALS.put("Brass", (str) -> AllItems.BRASS_INGOT);
     COIN_METALS.put("Iron", (str) -> Items.IRON_INGOT);
     COIN_METALS.put("Industrial Iron", (str) -> INDUSTRIAL_IRON_INGOT.get());
     COIN_METALS.put("Gold", (str) -> Items.GOLD_INGOT);
@@ -96,7 +96,7 @@ public class ItemRegistry {
       .tag(CreateDecoTags.nugget("Industrial Iron"))
       .tag(CreateDecoTags.nugget())
       .lang("Industrial Iron Nugget")
-      .recipe((ctx, prov) -> prov.storage(ctx, RecipeCategory.MISC, INDUSTRIAL_IRON_INGOT))
+      .recipe((ctx, prov) -> prov.storage(ctx, RecipeCategory.MISC, INDUSTRIAL_IRON_INGOT.get()))
       .register();
   }
 

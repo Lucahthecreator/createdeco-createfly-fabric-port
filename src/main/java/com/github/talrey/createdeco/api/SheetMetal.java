@@ -2,15 +2,15 @@ package com.github.talrey.createdeco.api;
 
 import com.github.talrey.createdeco.BlockStateGenerator;
 import com.github.talrey.createdeco.connected.SpriteShifts;
-import com.simibubi.create.content.decoration.palettes.ConnectedPillarBlock;
-import com.simibubi.create.foundation.block.connected.RotatedPillarCTBehaviour;
-import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.zurrtum.create.content.decoration.palettes.ConnectedPillarBlock;
+import com.zurrtum.create.client.foundation.block.connected.RotatedPillarCTBehaviour;
+import com.zurrtum.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.tags.BlockTags;
@@ -44,12 +44,12 @@ public class SheetMetal {
   public static <T extends Block> void recipeCrafting (
       String metal, DataGenContext<Block, T> ctx, RegistrateRecipeProvider prov
   ) {
-    ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ctx.get(), 4)
+    ShapedRecipeBuilder.shaped(null, RecipeCategory.DECORATIONS, ctx.get(), 4)
         .pattern("mm")
         .pattern("mm")
         .define('m', CreateDecoTags.plate(metal))
         .unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(
-            ItemPredicate.Builder.item().of(CreateDecoTags.plate(metal)).build()
+            ItemPredicate.Builder.item().of(null, CreateDecoTags.plate(metal)).build()
         ))
         .save(prov);
   }

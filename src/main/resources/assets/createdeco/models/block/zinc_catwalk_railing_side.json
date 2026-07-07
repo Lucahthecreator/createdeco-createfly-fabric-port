@@ -1,0 +1,69 @@
+﻿{
+    "render_type":  "cutout",
+    "ambientocclusion":  false,
+    "textures":  {
+                     "particle":  "createdeco:block/palettes/catwalks/zinc_catwalk_rail",
+                     "pane":  "createdeco:block/palettes/catwalks/zinc_catwalk_rail"
+                 },
+    "elements":  [
+                     {
+                         "from":  [
+                                      0,
+                                      0,
+                                      0
+                                  ],
+                         "to":  [
+                                    16,
+                                    14,
+                                    2
+                                ],
+                         "faces":  {
+                                       "north":  {
+                                                     "uv":  [
+                                                                0,
+                                                                0,
+                                                                16,
+                                                                16
+                                                            ],
+                                                     "texture":  "#pane"
+                                                 },
+                                       "south":  {
+                                                     "uv":  [
+                                                                0,
+                                                                0,
+                                                                16,
+                                                                16
+                                                            ],
+                                                     "texture":  "#pane"
+                                                 },
+                                       "east":  {
+                                                    "uv":  [
+                                                               0,
+                                                               0,
+                                                               2,
+                                                               16
+                                                           ],
+                                                    "texture":  "#pane"
+                                                },
+                                       "west":  {
+                                                    "uv":  [
+                                                               0,
+                                                               0,
+                                                               2,
+                                                               16
+                                                           ],
+                                                    "texture":  "#pane"
+                                                },
+                                       "up":  {
+                                                  "uv":  [
+                                                             0,
+                                                             0,
+                                                             16,
+                                                             2
+                                                         ],
+                                                  "texture":  "#pane"
+                                              }
+                                   }
+                     }
+                 ]
+}

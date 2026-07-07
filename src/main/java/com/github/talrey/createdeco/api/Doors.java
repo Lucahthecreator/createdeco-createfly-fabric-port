@@ -2,18 +2,18 @@ package com.github.talrey.createdeco.api;
 
 import com.github.talrey.createdeco.BlockStateGenerator;
 import com.github.talrey.createdeco.CreateDecoMod;
-import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.zurrtum.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.StatePropertiesPredicate;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.StatePropertiesPredicate;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
@@ -44,7 +44,7 @@ public class Doors {
   public static NonNullBiConsumer<DataGenContext<Block, DoorBlock>, RegistrateRecipeProvider> recipe (
     Supplier<Item> ingot
   ) {
-    return (ctx, prov) -> ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ctx.get(), 3)
+    return (ctx, prov) -> ShapedRecipeBuilder.shaped(null, RecipeCategory.DECORATIONS, ctx.get(), 3)
       .pattern("mm")
       .pattern("mm")
       .pattern("mm")
@@ -69,7 +69,6 @@ public class Doors {
       )
       .blockstate((ctx, prov)-> BlockStateGenerator.door(reg, metal, locked, ctx, prov)
       )
-      .addLayer(()-> RenderType::cutoutMipped)
       .loot((table, block)-> {
         LootTable.Builder builder = LootTable.lootTable();
         LootPool.Builder pool     = LootPool.lootPool();
@@ -82,7 +81,7 @@ public class Doors {
       })
       .tag(BlockTags.MINEABLE_WITH_PICKAXE)
       .tag(BlockTags.DOORS)
-      .item().tag(ItemTags.DOORS)
+      .item()
       .model((ctx,prov)->BlockStateGenerator.doorItem(reg, metal, ctx, prov))
       .properties(props -> (metal.contains("Netherite") ? props.fireResistant() : props))
       .build();
@@ -91,7 +90,7 @@ public class Doors {
   public static NonNullBiConsumer<DataGenContext<Block, DoorBlock>, RegistrateRecipeProvider> lockedRecipe (
     Supplier<Item> originalDoor
   ) {
-    return (ctx,prov)->ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, ctx.get())
+    return (ctx,prov)->ShapelessRecipeBuilder.shapeless(null, RecipeCategory.DECORATIONS, ctx.get())
       .requires(Items.REDSTONE_TORCH, 1)
       .requires(originalDoor.get())
       .unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(
@@ -106,7 +105,7 @@ public class Doors {
     String regName = metal.toLowerCase(Locale.ROOT).replaceAll(" ", "_")
       + "_trapdoor";
     String path = "block/palettes/doors/" + regName ;
-    ResourceLocation texture = CreateDecoMod.id(path);
+    Identifier texture = CreateDecoMod.id(path);
 
     return reg.block(regName, p->new TrapDoorBlock(OPEN_METAL_DOOR, p))
       .properties(props -> props.noOcclusion().strength(5, 5)
@@ -117,8 +116,7 @@ public class Doors {
       .lang(metal + " Trapdoor")
       .tag(BlockTags.MINEABLE_WITH_PICKAXE)
       .tag(BlockTags.TRAPDOORS)
-      .addLayer(()-> RenderType::cutoutMipped)
-      .item().tag(ItemTags.TRAPDOORS)
+      .item()
       .model((ctx,prov)->BlockStateGenerator.trapdoorItem(reg, metal, ctx, prov))
       .build();
   }
@@ -126,7 +124,7 @@ public class Doors {
   public static NonNullBiConsumer<DataGenContext<Block, TrapDoorBlock>, RegistrateRecipeProvider> trapdoorRecipe (
     Supplier<Item> ingot
   ) {
-    return (ctx, prov) -> ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ctx.get())
+    return (ctx, prov) -> ShapedRecipeBuilder.shaped(null, RecipeCategory.DECORATIONS, ctx.get())
       .pattern("mm")
       .pattern("mm")
       .define('m', ingot.get())

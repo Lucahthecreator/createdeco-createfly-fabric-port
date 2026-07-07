@@ -2,13 +2,13 @@ package com.github.talrey.createdeco.api;
 
 import com.github.talrey.createdeco.BlockStateGenerator;
 import com.github.talrey.createdeco.blocks.SupportWedgeBlock;
-import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.zurrtum.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.tags.BlockTags;
@@ -31,7 +31,6 @@ public class Wedges {
         .isViewBlocking((a, b, c) -> false)
         .isSuffocating((a, b, c) -> false)
       )
-      .addLayer(() -> RenderType::translucent)
       .item()
       .build()
       .tag(BlockTags.MINEABLE_WITH_PICKAXE)
@@ -44,12 +43,12 @@ public class Wedges {
           DataGenContext<Block, T> ctx, RegistrateRecipeProvider prov
   ) {
 
-    ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ctx.get(), 3)
+    ShapedRecipeBuilder.shaped(null, RecipeCategory.DECORATIONS, ctx.get(), 3)
         .pattern(" p")
         .pattern("pp")
         .define('p', CreateDecoTags.plate(metal))
         .unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(
-            ItemPredicate.Builder.item().of(CreateDecoTags.plate(metal)).build()
+            ItemPredicate.Builder.item().of(null, CreateDecoTags.plate(metal)).build()
         ))
         .save(prov);
 

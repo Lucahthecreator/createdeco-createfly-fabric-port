@@ -1,13 +1,9 @@
-{
-  "type": "create:pressing",
-  "ingredients": [
-    {
-      "item": "minecraft:gold_nugget"
-    }
-  ],
-  "results": [
-    {
-      "id": "createdeco:gold_coin"
-    }
-  ]
+﻿{
+    "type":  "create:pressing",
+    "ingredient":  "minecraft:gold_nugget",
+    "results":  [
+                    {
+                        "id":  "createdeco:gold_coin"
+                    }
+                ]
 }

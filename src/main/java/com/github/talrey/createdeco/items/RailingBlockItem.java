@@ -3,9 +3,9 @@ package com.github.talrey.createdeco.items;
 import com.github.talrey.createdeco.BlockRegistry;
 import com.github.talrey.createdeco.blocks.CatwalkRailingBlock;
 import com.github.talrey.createdeco.blocks.CatwalkStairBlock;
-import net.createmod.catnip.placement.IPlacementHelper;
-import net.createmod.catnip.placement.PlacementHelpers;
-import net.createmod.catnip.placement.PlacementOffset;
+import com.zurrtum.create.catnip.placement.IPlacementHelper;
+import com.zurrtum.create.catnip.placement.PlacementHelpers;
+import com.zurrtum.create.catnip.placement.PlacementOffset;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -105,7 +105,7 @@ public class RailingBlockItem extends BlockItem {
 
     @Override
     public Predicate<BlockState> getStatePredicate () {
-      return state -> true; //CatwalkRailingBlock.isRailing(state.getBlock());
+      return state -> CatwalkRailingBlock.isRailing(state.getBlock());
     }
 
     @Override

@@ -1,0 +1,9 @@
+﻿{
+    "multipart":  [
+                      {
+                          "apply":  {
+                                        "model":  "createdeco:block/brass_window_pane"
+                                    }
+                      }
+                  ]
+}

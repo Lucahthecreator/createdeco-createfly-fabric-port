@@ -3,14 +3,14 @@ package com.github.talrey.createdeco.api;
 import com.github.talrey.createdeco.BlockRegistry;
 import com.github.talrey.createdeco.BlockStateGenerator;
 import com.github.talrey.createdeco.CreateDecoMod;
-import com.simibubi.create.content.decoration.palettes.AllPaletteStoneTypes;
-import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.zurrtum.create.content.decoration.palettes.AllPaletteStoneTypes;
+import com.zurrtum.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.DataIngredient;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
@@ -130,7 +130,7 @@ public class Bricks {
           );
           recipeStonecuttingStair(finalName, color, prefix, ctx, prov);
         })
-        .item().tag(ItemTags.STAIRS).build()
+        .item().build()
       );
     }
     return ret;
@@ -243,7 +243,7 @@ public class Bricks {
   public static <T extends Block> void recipeCrafting (
       String color, DataGenContext<Block, T> ctx, RegistrateRecipeProvider prov
   ) {
-    ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ctx.get(), 4)
+    ShapedRecipeBuilder.shaped(null, RecipeCategory.BUILDING_BLOCKS, ctx.get(), 4)
         .pattern("bbb")
         .pattern("bab")
         .pattern("bbb")
@@ -261,7 +261,7 @@ public class Bricks {
   ) {
     String original = color + "_bricks";
     DyeColor dye = BlockRegistry.fromName(color);
-    ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, ctx.get())
+    ShapelessRecipeBuilder.shapeless(null, RecipeCategory.BUILDING_BLOCKS, ctx.get())
       .requires((dye == null)
         ? Blocks.BRICKS
         : BlockRegistry.BRICKS.get(dye).get(original)
@@ -274,7 +274,7 @@ public class Bricks {
       ))
       .save(prov, ctx.getName() + "_from_vine");
 
-    ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, ctx.get())
+    ShapelessRecipeBuilder.shapeless(null, RecipeCategory.BUILDING_BLOCKS, ctx.get())
         .requires((dye == null)
             ? Blocks.BRICKS
             : BlockRegistry.BRICKS.get(dye).get(original)

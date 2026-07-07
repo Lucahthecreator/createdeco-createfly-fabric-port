@@ -1,0 +1,92 @@
+﻿{
+    "multipart":  [
+                      {
+                          "when":  {
+                                       "up":  "true"
+                                   },
+                          "apply":  {
+                                        "model":  "createdeco:block/tiled_umber_brick_wall_post"
+                                    }
+                      },
+                      {
+                          "when":  {
+                                       "north":  "low"
+                                   },
+                          "apply":  {
+                                        "y":  0,
+                                        "uvlock":  true,
+                                        "model":  "createdeco:block/tiled_umber_brick_wall_side"
+                                    }
+                      },
+                      {
+                          "when":  {
+                                       "north":  "tall"
+                                   },
+                          "apply":  {
+                                        "y":  0,
+                                        "uvlock":  true,
+                                        "model":  "createdeco:block/tiled_umber_brick_wall_side_tall"
+                                    }
+                      },
+                      {
+                          "when":  {
+                                       "east":  "low"
+                                   },
+                          "apply":  {
+                                        "y":  90,
+                                        "uvlock":  true,
+                                        "model":  "createdeco:block/tiled_umber_brick_wall_side"
+                                    }
+                      },
+                      {
+                          "when":  {
+                                       "east":  "tall"
+                                   },
+                          "apply":  {
+                                        "y":  90,
+                                        "uvlock":  true,
+                                        "model":  "createdeco:block/tiled_umber_brick_wall_side_tall"
+                                    }
+                      },
+                      {
+                          "when":  {
+                                       "south":  "low"
+                                   },
+                          "apply":  {
+                                        "y":  180,
+                                        "uvlock":  true,
+                                        "model":  "createdeco:block/tiled_umber_brick_wall_side"
+                                    }
+                      },
+                      {
+                          "when":  {
+                                       "south":  "tall"
+                                   },
+                          "apply":  {
+                                        "y":  180,
+                                        "uvlock":  true,
+                                        "model":  "createdeco:block/tiled_umber_brick_wall_side_tall"
+                                    }
+                      },
+                      {
+                          "when":  {
+                                       "west":  "low"
+                                   },
+                          "apply":  {
+                                        "y":  270,
+                                        "uvlock":  true,
+                                        "model":  "createdeco:block/tiled_umber_brick_wall_side"
+                                    }
+                      },
+                      {
+                          "when":  {
+                                       "west":  "tall"
+                                   },
+                          "apply":  {
+                                        "y":  270,
+                                        "uvlock":  true,
+                                        "model":  "createdeco:block/tiled_umber_brick_wall_side_tall"
+                                    }
+                      }
+                  ]
+}

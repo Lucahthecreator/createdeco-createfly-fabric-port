@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "layer0":  "createdeco:item/netherite_coin"
+                 },
+    "parent":  "minecraft:item/generated"
+}

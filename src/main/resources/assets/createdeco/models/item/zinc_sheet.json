@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "layer0":  "createdeco:item/zinc_sheet"
+                 },
+    "parent":  "minecraft:item/generated"
+}

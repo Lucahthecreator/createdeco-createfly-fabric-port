@@ -1,0 +1,8 @@
+﻿{
+    "textures":  {
+                     "bottom":  "createdeco:block/palettes/bricks/umber/umber_bricks",
+                     "top":  "createdeco:block/palettes/bricks/umber/umber_bricks",
+                     "side":  "createdeco:block/palettes/bricks/umber/umber_bricks"
+                 },
+    "parent":  "minecraft:block/stairs"
+}

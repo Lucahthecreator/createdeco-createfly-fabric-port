@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "all":  "createdeco:block/palettes/bricks/scarlet/short_scarlet_bricks"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

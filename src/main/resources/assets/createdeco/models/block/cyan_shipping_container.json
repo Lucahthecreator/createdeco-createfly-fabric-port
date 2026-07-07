@@ -1,0 +1,79 @@
+﻿{
+    "textures":  {
+                     "particle":  "createdeco:block/palettes/shipping_containers/cyan/vault_side_small",
+                     "top":  "createdeco:block/palettes/shipping_containers/cyan/vault_top_small",
+                     "bottom":  "createdeco:block/palettes/shipping_containers/cyan/vault_bottom_small",
+                     "side":  "createdeco:block/palettes/shipping_containers/cyan/vault_side_small",
+                     "front":  "createdeco:block/palettes/shipping_containers/cyan/vault_front_small"
+                 },
+    "elements":  [
+                     {
+                         "from":  [
+                                      0,
+                                      0,
+                                      0
+                                  ],
+                         "to":  [
+                                    16,
+                                    16,
+                                    16
+                                ],
+                         "faces":  {
+                                       "up":  {
+                                                  "texture":  "#top",
+                                                  "uv":  [
+                                                             0,
+                                                             0,
+                                                             16,
+                                                             16
+                                                         ]
+                                              },
+                                       "down":  {
+                                                    "texture":  "#bottom",
+                                                    "uv":  [
+                                                               0,
+                                                               0,
+                                                               16,
+                                                               16
+                                                           ]
+                                                },
+                                       "north":  {
+                                                     "texture":  "#front",
+                                                     "uv":  [
+                                                                0,
+                                                                0,
+                                                                16,
+                                                                16
+                                                            ]
+                                                 },
+                                       "south":  {
+                                                     "texture":  "#front",
+                                                     "uv":  [
+                                                                0,
+                                                                0,
+                                                                16,
+                                                                16
+                                                            ]
+                                                 },
+                                       "east":  {
+                                                    "texture":  "#side",
+                                                    "uv":  [
+                                                               0,
+                                                               0,
+                                                               16,
+                                                               16
+                                                           ]
+                                                },
+                                       "west":  {
+                                                    "texture":  "#side",
+                                                    "uv":  [
+                                                               0,
+                                                               0,
+                                                               16,
+                                                               16
+                                                           ]
+                                                }
+                                   }
+                     }
+                 ]
+}

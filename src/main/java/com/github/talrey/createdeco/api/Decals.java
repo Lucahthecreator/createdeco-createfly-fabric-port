@@ -2,13 +2,13 @@ package com.github.talrey.createdeco.api;
 
 import com.github.talrey.createdeco.BlockStateGenerator;
 import com.github.talrey.createdeco.blocks.DecalBlock;
-import com.simibubi.create.AllItems;
-import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.zurrtum.create.AllItems;
+import com.zurrtum.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -65,7 +65,7 @@ public class Decals {
   ) {
     SingleItemRecipeBuilder.stonecutting(Ingredient.of(AllItems.IRON_SHEET), RecipeCategory.DECORATIONS, ctx.get(), 1)
         .unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(
-            ItemPredicate.Builder.item().of(AllItems.IRON_SHEET).build()
+            ItemPredicate.Builder.item().of(null, AllItems.IRON_SHEET).build()
         ))
         .save(prov);
   }

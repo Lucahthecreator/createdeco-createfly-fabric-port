@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "layer0":  "createdeco:item/blue_brick"
+                 },
+    "parent":  "minecraft:item/generated"
+}

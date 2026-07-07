@@ -1,0 +1,33 @@
+﻿{
+    "render_type":  "cutout",
+    "ambientocclusion":  false,
+    "elements":  [
+                     {
+                         "faces":  {
+                                       "north":  {
+                                                     "uv":  [
+                                                                2,
+                                                                2,
+                                                                14,
+                                                                14
+                                                            ],
+                                                     "texture":  "#decal"
+                                                 }
+                                   },
+                         "from":  [
+                                      2,
+                                      2,
+                                      15.5
+                                  ],
+                         "to":  [
+                                    14,
+                                    14,
+                                    16
+                                ]
+                     }
+                 ],
+    "textures":  {
+                     "particle":  "createdeco:block/palettes/decals/decal_down",
+                     "decal":  "createdeco:block/palettes/decals/decal_down"
+                 }
+}

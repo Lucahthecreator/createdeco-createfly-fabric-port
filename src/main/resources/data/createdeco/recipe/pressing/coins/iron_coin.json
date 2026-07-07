@@ -1,13 +1,9 @@
-{
-  "type": "create:pressing",
-  "ingredients": [
-    {
-      "item": "minecraft:iron_nugget"
-    }
-  ],
-  "results": [
-    {
-      "id": "createdeco:iron_coin"
-    }
-  ]
+﻿{
+    "type":  "create:pressing",
+    "ingredient":  "minecraft:iron_nugget",
+    "results":  [
+                    {
+                        "id":  "createdeco:iron_coin"
+                    }
+                ]
 }

@@ -2,13 +2,13 @@ package com.github.talrey.createdeco.api;
 
 import com.github.talrey.createdeco.BlockStateGenerator;
 import com.github.talrey.createdeco.blocks.HullBlock;
-import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.zurrtum.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.SingleItemRecipeBuilder;
@@ -32,7 +32,6 @@ public class Hulls {
             .noOcclusion()
             .isViewBlocking((a,b,c)->false)
         )
-        .addLayer(() -> RenderType::cutoutMipped)
         .item()
         .properties(p -> (metal.contains("Netherite")) ? p.fireResistant() : p)
         .build()
@@ -45,7 +44,7 @@ public class Hulls {
   public static <T extends Block> void recipeCrafting (
       String metal, DataGenContext<Block, T> ctx, RegistrateRecipeProvider prov
   ) {
-    ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ctx.get(), 2)
+    ShapedRecipeBuilder.shaped(null, RecipeCategory.DECORATIONS, ctx.get(), 2)
         .pattern(" m ")
         .pattern("mpm")
         .pattern(" m ")
@@ -53,7 +52,7 @@ public class Hulls {
         .define('m', CreateDecoTags.plate(metal))
         .define('p', CreateDecoTags.blockItem(metal))
         .unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(
-            ItemPredicate.Builder.item().of(CreateDecoTags.blockItem(metal)).build()
+            ItemPredicate.Builder.item().of(null, CreateDecoTags.blockItem(metal)).build()
         ))
         .save(prov);
   }
@@ -61,10 +60,5 @@ public class Hulls {
   public static <T extends Block> void recipeStonecutting (
       String metal, DataGenContext<Block, T> ctx, RegistrateRecipeProvider prov
   ) {
-    SingleItemRecipeBuilder.stonecutting(Ingredient.of(CreateDecoTags.blockItem(metal)), RecipeCategory.DECORATIONS, ctx.get(), 1)
-        .unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(
-            ItemPredicate.Builder.item().of(CreateDecoTags.blockItem(metal)).build()
-        ))
-        .save(prov, metal.toLowerCase().replaceAll(" ", "_") + "_hull_from_stonecutting");
   }
 }

@@ -1,0 +1,10 @@
+﻿{
+    "variants":  {
+                     "bottom=false":  {
+                                          "model":  "createdeco:block/copper_catwalk"
+                                      },
+                     "bottom=true":  {
+                                         "model":  "createdeco:block/copper_catwalk"
+                                     }
+                 }
+}

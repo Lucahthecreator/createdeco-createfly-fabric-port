@@ -1,0 +1,8 @@
+﻿{
+    "textures":  {
+                     "bottom":  "createdeco:block/palettes/bricks/dean/mossy_dean_bricks",
+                     "top":  "createdeco:block/palettes/bricks/dean/mossy_dean_bricks",
+                     "side":  "createdeco:block/palettes/bricks/dean/mossy_dean_bricks"
+                 },
+    "parent":  "minecraft:block/slab_top"
+}

@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "wall":  "createdeco:block/palettes/bricks/pearl/long_pearl_bricks"
+                 },
+    "parent":  "minecraft:block/wall_inventory"
+}

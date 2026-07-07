@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "all":  "createdeco:block/palettes/hull/copper_hull_side"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

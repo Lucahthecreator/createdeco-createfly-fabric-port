@@ -1,11 +1,12 @@
 package com.github.talrey.createdeco.blocks;
 
 import com.mojang.serialization.MapCodec;
-import com.simibubi.create.content.equipment.wrench.IWrenchable;
-import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
+import com.zurrtum.create.content.equipment.wrench.IWrenchable;
+import com.zurrtum.create.foundation.block.ProperWaterloggedBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.util.RandomSource;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -14,8 +15,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DirectionalBlock;
@@ -24,6 +25,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -65,12 +67,19 @@ public class CageLampBlock extends DirectionalBlock implements ProperWaterlogged
 
   public CageLampBlock(Properties props, Vector3f color) {
     super(props);
-    this.particle = new DustParticleOptions(color, 0.3f);
+    this.particle = new DustParticleOptions(rgb(color), 0.3f);
     this.registerDefaultState(this.defaultBlockState()
       .setValue(BlockStateProperties.LIT, false)
       .setValue(BlockStateProperties.INVERTED, false)
       .setValue(BlockStateProperties.FACING, Direction.UP)
       .setValue(WATERLOGGED, false));
+  }
+
+  private static int rgb(Vector3f color) {
+    int r = Math.clamp((int)(color.x() * 255.0f), 0, 255);
+    int g = Math.clamp((int)(color.y() * 255.0f), 0, 255);
+    int b = Math.clamp((int)(color.z() * 255.0f), 0, 255);
+    return (r << 16) | (g << 8) | b;
   }
 
   @Nullable
@@ -100,10 +109,10 @@ public class CageLampBlock extends DirectionalBlock implements ProperWaterlogged
   }
 
   @Override
-  public BlockState updateShape (BlockState state, Direction from, BlockState neighbor, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
-    updateWater(level, state, pos);
+  public BlockState updateShape (BlockState state, LevelReader level, ScheduledTickAccess scheduledTickAccess, BlockPos pos, Direction from, BlockPos neighborPos, BlockState neighbor, RandomSource random) {
+    updateWater(level, scheduledTickAccess, state, pos);
     return !this.canSurvive(state, level, pos) ? Blocks.AIR.defaultBlockState() :
-      super.updateShape(state, from, neighbor, level, pos, neighborPos);
+      super.updateShape(state, level, scheduledTickAccess, pos, from, neighborPos, neighbor, random);
   }
 
   @Override
@@ -117,17 +126,14 @@ public class CageLampBlock extends DirectionalBlock implements ProperWaterlogged
   }
 
   @Override
-  public void neighborChanged (BlockState state, Level level, BlockPos pos, Block neighbor, BlockPos neighborPos, boolean bool) {
-    Direction face = state.getValue(BlockStateProperties.FACING);
-    if (pos.relative(face.getOpposite()).equals(neighborPos)) {
-      BlockState next = toggle(state, level, pos);
-    }
+  protected void neighborChanged (BlockState state, Level level, BlockPos pos, Block neighbor, Orientation orientation, boolean bool) {
+    toggle(state, level, pos);
   }
 
   @Override
   protected InteractionResult useWithoutItem (BlockState state, Level level, BlockPos pos, Player entity, BlockHitResult hitResult) {
     BlockState next = this.toggle(state.cycle(BlockStateProperties.INVERTED), level, pos);
-    if (level.isClientSide) {
+    if (level.isClientSide()) {
       return InteractionResult.SUCCESS;
     } else {
       float pitch = next.getValue(BlockStateProperties.INVERTED) ? 0.6f : 0.5f;
@@ -137,7 +143,7 @@ public class CageLampBlock extends DirectionalBlock implements ProperWaterlogged
   }
 
   private BlockState toggle (BlockState state, Level level, BlockPos pos) {
-    if (level.isClientSide) {
+    if (level.isClientSide()) {
       makeParticle(state, level, pos);
     }
     BlockState next = state.setValue(BlockStateProperties.LIT, shouldBeLit(state, level, pos));
@@ -145,7 +151,7 @@ public class CageLampBlock extends DirectionalBlock implements ProperWaterlogged
     return next;
   }
 
-  private void makeParticle (BlockState state, LevelAccessor level, BlockPos pos) {
+  private void makeParticle (BlockState state, Level level, BlockPos pos) {
     Direction direction = state.getValue(BlockStateProperties.FACING);
     float x = pos.getX() + 0.5f + 0.1f * direction.getStepX();
     float y = pos.getY() + 0.5f + 0.1f * direction.getStepY();

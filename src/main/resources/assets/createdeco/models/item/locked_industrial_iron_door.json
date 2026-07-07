@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "layer0":  "createdeco:item/locked_industrial_iron_door"
+                 },
+    "parent":  "minecraft:item/generated"
+}

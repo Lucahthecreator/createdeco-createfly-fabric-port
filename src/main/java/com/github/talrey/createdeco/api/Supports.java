@@ -2,13 +2,13 @@ package com.github.talrey.createdeco.api;
 
 import com.github.talrey.createdeco.BlockStateGenerator;
 import com.github.talrey.createdeco.blocks.SupportBlock;
-import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.zurrtum.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.tags.BlockTags;
@@ -33,7 +33,6 @@ public class Supports {
         .isViewBlocking((a, b, c) -> false)
         .isSuffocating((a, b, c) -> false)
       )
-      .addLayer(() -> RenderType::translucent)
       .item()
       .build()
       .tag(BlockTags.MINEABLE_WITH_PICKAXE)
@@ -45,7 +44,7 @@ public class Supports {
     Supplier<Item> ingot
   ) {
     return (ctx,prov)->
-      ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ctx.get(), 4)
+      ShapedRecipeBuilder.shaped(null, RecipeCategory.DECORATIONS, ctx.get(), 4)
         .pattern(" b ")
         .pattern("b b")
         .pattern(" b ")

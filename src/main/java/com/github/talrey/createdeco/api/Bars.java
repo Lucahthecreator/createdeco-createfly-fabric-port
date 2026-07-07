@@ -1,58 +1,57 @@
 package com.github.talrey.createdeco.api;
 
 import com.github.talrey.createdeco.BlockStateGenerator;
-import com.simibubi.create.AllTags;
-import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.github.talrey.createdeco.blocks.DecoBarsBlock;
+import com.zurrtum.create.AllTags;
+import com.zurrtum.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.SingleItemRecipeBuilder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.SoundType;
 
 import java.util.Locale;
 import java.util.function.Supplier;
 
 public class Bars {
-  public static BlockBuilder<IronBarsBlock, ?> build (
+  public static BlockBuilder<DecoBarsBlock, ?> build (
           CreateRegistrate reg, String metal, String suffix, boolean doPost
   ) {
     String base = metal.replace(' ', '_').toLowerCase(Locale.ROOT).replaceAll(" ", "_") + "_bars";
     String suf = suffix.equals("") ? "" : "_" + suffix.replace(' ', '_').toLowerCase(Locale.ROOT);
     String post = "block/palettes/metal_bars/" + base + (doPost ? "_post" : "");
 
-    ResourceLocation barTexture, postTexture;
-    final ResourceLocation bartex, postex;
+    Identifier barTexture, postTexture;
+    final Identifier bartex, postex;
     //try {
     if (metal.equals("Iron")) {
-      barTexture = ResourceLocation.fromNamespaceAndPath("minecraft", "block/iron_bars");
+      barTexture = Identifier.fromNamespaceAndPath("minecraft", "block/iron_bars");
       postTexture = barTexture;
     }
     else {
-      barTexture = ResourceLocation.fromNamespaceAndPath(reg.getModid(), "block/palettes/metal_bars/" + base);
-      postTexture = ResourceLocation.fromNamespaceAndPath(reg.getModid(), post);
+      barTexture = Identifier.fromNamespaceAndPath(reg.getModid(), "block/palettes/metal_bars/" + base);
+      postTexture = Identifier.fromNamespaceAndPath(reg.getModid(), post);
     }
 
     // for lambda stuff, must be final
     bartex = barTexture;
     postex = postTexture;
 
-    var block = reg.block(base + suf, IronBarsBlock::new)
+    var block = reg.block(base + suf, DecoBarsBlock::new)
       .properties(props -> props.noOcclusion().strength(5, 6)
         .requiresCorrectToolForDrops()
         .sound(SoundType.NETHERITE_BLOCK))
       .blockstate((ctx, prov)-> BlockStateGenerator.bar(base, suf, bartex, postex, ctx, prov))
-      .addLayer(()-> RenderType::cutoutMipped)
       .tag(BlockTags.MINEABLE_WITH_PICKAXE)
       .tag(CreateDecoTags.BARS)
       .item()
@@ -72,7 +71,7 @@ public class Bars {
   ) {
     SingleItemRecipeBuilder.stonecutting(Ingredient.of(ingot.get()), RecipeCategory.DECORATIONS, ctx.get(), 4)
             .unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(
-                    ItemPredicate.Builder.item().of(ingot.get()).build()
+                    ItemPredicate.Builder.item().of(null, ingot.get()).build()
             ))
             .save(prov, ctx.getName() + "_from_stonecutting");
 
@@ -82,7 +81,7 @@ public class Bars {
           Supplier<Item> ingot,
           DataGenContext<Block, T> ctx, RegistrateRecipeProvider prov
   ) {
-    ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ctx.get(), 16)
+    ShapedRecipeBuilder.shaped(null, RecipeCategory.DECORATIONS, ctx.get(), 16)
             .pattern("bbb")
             .pattern("bbb")
             .define('b', ingot.get())
@@ -97,12 +96,12 @@ public class Bars {
           DataGenContext<Block, T> ctx, RegistrateRecipeProvider prov
   ) {
 
-    ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ctx.get(), 16)
+    ShapedRecipeBuilder.shaped(null, RecipeCategory.DECORATIONS, ctx.get(), 16)
             .pattern("ppp")
             .pattern("ppp")
             .define('p', CreateDecoTags.plate(metal))
             .unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(
-                    ItemPredicate.Builder.item().of(CreateDecoTags.plate(metal)).build()
+                    ItemPredicate.Builder.item().of(null, CreateDecoTags.plate(metal)).build()
             ))
             .save(prov, ctx.getName());
   }

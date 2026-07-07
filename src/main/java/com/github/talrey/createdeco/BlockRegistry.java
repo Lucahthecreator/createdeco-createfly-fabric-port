@@ -2,21 +2,21 @@ package com.github.talrey.createdeco;
 
 import com.github.talrey.createdeco.api.*;
 import com.github.talrey.createdeco.blocks.*;
-import com.simibubi.create.AllBlocks;
-import com.simibubi.create.AllItems;
-import com.simibubi.create.content.decoration.MetalLadderBlock;
-import com.simibubi.create.content.decoration.palettes.ConnectedGlassPaneBlock;
-import com.simibubi.create.content.decoration.palettes.ConnectedPillarBlock;
-import com.simibubi.create.content.decoration.palettes.WindowBlock;
-import com.simibubi.create.content.decoration.placard.PlacardBlock;
-import com.simibubi.create.content.decoration.placard.PlacardRenderer;
-import com.simibubi.create.foundation.data.SharedProperties;
-import com.simibubi.create.foundation.item.TooltipModifier;
+import com.zurrtum.create.AllBlocks;
+import com.zurrtum.create.AllItems;
+import com.zurrtum.create.content.decoration.MetalLadderBlock;
+import com.zurrtum.create.content.decoration.palettes.ConnectedGlassPaneBlock;
+import com.zurrtum.create.content.decoration.palettes.ConnectedPillarBlock;
+import com.zurrtum.create.content.decoration.palettes.WindowBlock;
+import com.zurrtum.create.content.decoration.placard.PlacardBlock;
+import com.zurrtum.create.client.content.decoration.placard.PlacardRenderer;
+import com.zurrtum.create.foundation.data.SharedProperties;
+import com.zurrtum.create.client.foundation.item.TooltipModifier;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.DyeColor;
@@ -31,7 +31,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static com.github.talrey.createdeco.api.CageLamps.*;
-import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
+import static com.zurrtum.create.foundation.data.TagGen.pickaxeOnly;
 
 public class BlockRegistry {
 
@@ -62,8 +62,8 @@ public class BlockRegistry {
 	public static HashMap<String, BlockEntry<DoorBlock>> DOORS          = new HashMap<>();
 	public static HashMap<String, BlockEntry<DoorBlock>> LOCK_DOORS     = new HashMap<>();
 	public static HashMap<String, BlockEntry<TrapDoorBlock>> TRAPDOORS  = new HashMap<>();
-	public static HashMap<String, BlockEntry<IronBarsBlock>> BARS       = new HashMap<>();
-	public static HashMap<String, BlockEntry<IronBarsBlock>> BAR_PANELS = new HashMap<>();
+	public static HashMap<String, BlockEntry<DecoBarsBlock>> BARS       = new HashMap<>();
+	public static HashMap<String, BlockEntry<DecoBarsBlock>> BAR_PANELS = new HashMap<>();
 	public static HashMap<String, BlockEntry<MeshFenceBlock>> MESH_FENCES   = new HashMap<>();
 	public static HashMap<String, BlockEntry<ConnectedPillarBlock>> SHEET_METAL_PILLARS = new HashMap<>();
 
@@ -156,11 +156,11 @@ public class BlockRegistry {
 
 
 	private static void registerCageLamps (String metal, Function<String, Item> getter) {
-		ResourceLocation cage = CreateDecoMod.id(
+		Identifier cage = CreateDecoMod.id(
 				"block/palettes/cage_lamp/"
 						+ metal.toLowerCase(Locale.ROOT).replaceAll(" ", "_") + "_lamp"
 		);
-		Supplier<Item> material = (metal == "Andesite" ? AllItems.ANDESITE_ALLOY : null);
+		Supplier<Item> material = (metal.equals("Andesite") ? () -> AllItems.ANDESITE_ALLOY : null);
 
 		YELLOW_CAGE_LAMPS.put(metal, CageLamps.build(
 						CreateDecoMod.REGISTRATE, metal, DyeColor.YELLOW, cage, YELLOW_ON, YELLOW_OFF
@@ -251,7 +251,7 @@ public class BlockRegistry {
 		}
 		else if (metal.equals("Copper")) {
 			LOCK_DOORS.put(metal, Doors.build(CreateDecoMod.REGISTRATE, metal, true)
-				.recipe(Doors.lockedRecipe(Blocks.COPPER_DOOR::asItem))
+				.recipe(Doors.lockedRecipe(() -> SharedProperties.asItem(Blocks.COPPER_DOOR)))
 				.register());
 			return;
 		}
@@ -355,7 +355,7 @@ public class BlockRegistry {
 			validPlacards[color] = block;
 		}
 		PLACARD_ENTITIES = CreateDecoMod.REGISTRATE.blockEntity("dyed_placard", DyedPlacardBlock.Entity::new)
-				.renderer(()-> PlacardRenderer::new)
+				.renderer(() -> null)
 				.validBlocks(PLACARDS.values().toArray(validPlacards))
 				.register();
 	}
@@ -363,9 +363,9 @@ public class BlockRegistry {
 	private static void registerCoins (String metal, Function<String, Item> getter) {
 		if (metal.equals("Andesite")) return;
 		String regName = metal.toLowerCase(Locale.ROOT).replaceAll(" ", "_");
-		ResourceLocation side   = CreateDecoMod.id("block/" + regName + "_coinstack_side");
-		ResourceLocation top    = CreateDecoMod.id("block/" + regName + "_coinstack_top");
-		ResourceLocation bottom = CreateDecoMod.id("block/" + regName + "_coinstack_bottom");
+		Identifier side   = CreateDecoMod.id("block/" + regName + "_coinstack_side");
+		Identifier top    = CreateDecoMod.id("block/" + regName + "_coinstack_top");
+		Identifier bottom = CreateDecoMod.id("block/" + regName + "_coinstack_bottom");
 
 		COIN_BLOCKS.put(metal, Coins.buildCoinStackBlock(
 				CreateDecoMod.REGISTRATE,
@@ -406,7 +406,7 @@ public class BlockRegistry {
 
 //	private static TagKey<Block> of (String namespace, String path) {
 //		return BlockTags.create(
-//			ResourceLocation.fromNamespaceAndPath(namespace, path)
+//			Identifier.fromNamespaceAndPath(namespace, path)
 //		);
 //	}
 //

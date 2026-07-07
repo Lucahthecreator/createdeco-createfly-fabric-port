@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "layer0":  "createdeco:item/scarlet_brick"
+                 },
+    "parent":  "minecraft:item/generated"
+}

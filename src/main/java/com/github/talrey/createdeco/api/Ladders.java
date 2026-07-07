@@ -1,14 +1,14 @@
 package com.github.talrey.createdeco.api;
 
 import com.github.talrey.createdeco.BlockStateGenerator;
-import com.simibubi.create.content.decoration.MetalLadderBlock;
-import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.zurrtum.create.content.decoration.MetalLadderBlock;
+import com.zurrtum.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.tags.BlockTags;
@@ -30,7 +30,6 @@ public class Ladders {
 
     return reg.block(regName + "_ladder", MetalLadderBlock::new)
         .initialProperties(() -> Blocks.LADDER)
-        .addLayer(() -> RenderType::cutout)
         .blockstate((ctx, prov)-> BlockStateGenerator.ladder(ctx,prov,regName)
         )
         .properties(p -> p.sound(SoundType.COPPER))
@@ -49,7 +48,7 @@ public class Ladders {
   ) {
     SingleItemRecipeBuilder.stonecutting(Ingredient.of(ingot.get()), RecipeCategory.DECORATIONS, ctx.get(), 2)
         .unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(
-            ItemPredicate.Builder.item().of(ingot.get()).build()
+            ItemPredicate.Builder.item().of(null, ingot.get()).build()
         ))
         .save(prov, ctx.getName() + "_from_stonecutting");
 

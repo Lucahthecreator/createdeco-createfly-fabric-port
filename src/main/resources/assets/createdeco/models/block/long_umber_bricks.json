@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "all":  "createdeco:block/palettes/bricks/umber/long_umber_bricks"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

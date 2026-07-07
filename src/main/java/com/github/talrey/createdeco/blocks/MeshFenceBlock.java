@@ -1,6 +1,6 @@
 package com.github.talrey.createdeco.blocks;
 
-import com.simibubi.create.content.equipment.wrench.IWrenchable;
+import com.zurrtum.create.content.equipment.wrench.IWrenchable;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -17,6 +17,11 @@ public class MeshFenceBlock extends FenceBlock implements IWrenchable {
     public MeshFenceBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(UP, false).setValue(NORTH, false).setValue(EAST, false).setValue(SOUTH, false).setValue(WEST, false).setValue(WATERLOGGED, false));
+    }
+
+    @Override
+    public boolean connectsTo(BlockState state, boolean sideSolid, net.minecraft.core.Direction direction) {
+        return state.getBlock() == this;
     }
 
     public InteractionResult onWrenched(BlockState state, UseOnContext context) {

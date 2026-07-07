@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "wall":  "createdeco:block/palettes/bricks/scarlet/scarlet_bricks"
+                 },
+    "parent":  "minecraft:block/template_wall_post"
+}

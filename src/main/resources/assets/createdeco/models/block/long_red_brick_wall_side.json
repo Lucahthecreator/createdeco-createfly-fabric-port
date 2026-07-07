@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "wall":  "createdeco:block/palettes/bricks/red/long_red_bricks"
+                 },
+    "parent":  "minecraft:block/template_wall_side"
+}

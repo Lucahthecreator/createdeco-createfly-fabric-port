@@ -10,15 +10,15 @@ import com.github.talrey.createdeco.connected.SpriteShifts;
 import com.github.talrey.createdeco.items.CatwalkBlockItem;
 import com.github.talrey.createdeco.items.CatwalkStairBlockItem;
 import com.github.talrey.createdeco.items.RailingBlockItem;
-import com.simibubi.create.AllTags;
-import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.zurrtum.create.AllTags;
+import com.zurrtum.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.advancements.critereon.StatePropertiesPredicate;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.criterion.StatePropertiesPredicate;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.core.Direction;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
@@ -61,7 +61,6 @@ public class Catwalks {
         catwalksPool.add(catwalks);
         table.add(block, builder.withPool(catwalksPool).withPool(supportPool));
       })
-      .addLayer(() -> RenderType::cutoutMipped)
       .tag(BlockTags.MINEABLE_WITH_PICKAXE)
       .tag(AllTags.AllBlockTags.FAN_TRANSPARENT.tag)
       .item(CatwalkBlockItem::new)
@@ -116,7 +115,6 @@ public class Catwalks {
         stairsPool.add(stairs);
         table.add(block, builder.withPool(stairsPool).withPool(railingsPool));
       })
-      .addLayer(()-> RenderType::translucent)
       .tag(BlockTags.MINEABLE_WITH_PICKAXE)
       .tag(BlockTags.STAIRS)
       .tag(AllTags.AllBlockTags.FAN_TRANSPARENT.tag)
@@ -134,7 +132,6 @@ public class Catwalks {
         props.strength(5, 6)
           .requiresCorrectToolForDrops().noOcclusion().sound(SoundType.NETHERITE_BLOCK)
       )
-      .addLayer(()-> RenderType::translucent)
       .tag(BlockTags.MINEABLE_WITH_PICKAXE)
       .tag(AllTags.AllBlockTags.FAN_TRANSPARENT.tag)
       .blockstate((ctx,prov)-> BlockStateGenerator.catwalkRailing(reg, metal, ctx, prov))
@@ -165,7 +162,7 @@ public class Catwalks {
   ) {
     SingleItemRecipeBuilder.stonecutting(Ingredient.of(ingot.get()), RecipeCategory.DECORATIONS, ctx.get(), count)
         .unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(
-            ItemPredicate.Builder.item().of(ingot.get()).build()
+            ItemPredicate.Builder.item().of(null, ingot.get()).build()
         ))
         .save(prov, ctx.getName() + "_from_stonecutting");
 
@@ -176,7 +173,7 @@ public class Catwalks {
       DataGenContext<Block, T> ctx, RegistrateRecipeProvider prov
 
   ) {
-    ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ctx.get(), 2)
+    ShapedRecipeBuilder.shaped(null, RecipeCategory.DECORATIONS, ctx.get(), 2)
         .pattern(" c")
         .pattern("cb")
         .define('c', BlockRegistry.CATWALKS.get(metal).get())
@@ -192,14 +189,14 @@ public class Catwalks {
       DataGenContext<Block, T> ctx, RegistrateRecipeProvider prov
 
   ) {
-    ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ctx.get(), 4)
+    ShapedRecipeBuilder.shaped(null, RecipeCategory.DECORATIONS, ctx.get(), 4)
         .pattern(" p ")
         .pattern("pBp")
         .pattern(" p ")
         .define('p', CreateDecoTags.plate(metal))
         .define('B', barItem)
         .unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(
-            ItemPredicate.Builder.item().of(CreateDecoTags.plate(metal)).build()
+            ItemPredicate.Builder.item().of(null, CreateDecoTags.plate(metal)).build()
         ))
         .save(prov, ctx.getName() + "_forge");
   }
@@ -209,14 +206,14 @@ public class Catwalks {
       DataGenContext<Block, T> ctx, RegistrateRecipeProvider prov
 
   ) {
-    ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ctx.get(), 8)
+    ShapedRecipeBuilder.shaped(null, RecipeCategory.DECORATIONS, ctx.get(), 8)
         .pattern("ppp")
         .pattern("B B")
         .pattern("B B")
         .define('p', CreateDecoTags.plate(metal))
         .define('B', barItem)
         .unlockedBy("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(
-            ItemPredicate.Builder.item().of(CreateDecoTags.plate(metal)).build()
+            ItemPredicate.Builder.item().of(null, CreateDecoTags.plate(metal)).build()
         ))
         .save(prov, ctx.getName() + "_forge");
   }

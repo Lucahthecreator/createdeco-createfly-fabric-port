@@ -1,14 +1,11 @@
 package com.github.talrey.createdeco.blocks;
 
 import com.github.talrey.createdeco.BlockRegistry;
-import com.simibubi.create.AllBlockEntityTypes;
-import com.simibubi.create.api.connectivity.ConnectivityHandler;
-import com.simibubi.create.api.packager.InventoryIdentifier;
-import com.simibubi.create.content.logistics.vault.ItemVaultBlock;
-import com.simibubi.create.content.logistics.vault.ItemVaultBlockEntity;
-import com.simibubi.create.foundation.ICapabilityProvider;
-import com.simibubi.create.foundation.blockEntity.behaviour.inventory.VersionedInventoryWrapper;
-import com.simibubi.create.foundation.utility.SameSizeCombinedInvWrapper;
+import com.zurrtum.create.AllBlockEntityTypes;
+import com.zurrtum.create.api.connectivity.ConnectivityHandler;
+import com.zurrtum.create.api.packager.InventoryIdentifier;
+import com.zurrtum.create.content.logistics.vault.ItemVaultBlock;
+import com.zurrtum.create.content.logistics.vault.ItemVaultBlockEntity;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -20,11 +17,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.levelgen.structure.BoundingBox;
-import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
-import net.neoforged.neoforge.items.IItemHandlerModifiable;
-import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
 public class ShippingContainerBlock extends ItemVaultBlock {
@@ -93,24 +86,16 @@ public class ShippingContainerBlock extends ItemVaultBlock {
 
   public static class Entity extends ItemVaultBlockEntity {
     public Entity (BlockEntityType<?> type, BlockPos pos, BlockState state) {
-      super(type, pos, state);
+      super(pos, state);
+    }
+
+    @Override
+    public boolean isValidBlockState(BlockState state) {
+      return ShippingContainerBlock.isVault(state) || super.isValidBlockState(state);
     }
 
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-
-      for (BlockEntityEntry<Entity> vault : BlockRegistry.CONTAINER_ENTITIES.values()) {
-        event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
-                vault.get(),
-                (be, context) -> {
-                  be.initCapability();
-                  if (be.itemCapability == null)
-                    return null;
-                  return be.itemCapability.getCapability();
-                }
-        );
-      }
-
+      // Fabric/CreateFly exposes vault inventories through its own storage hooks.
     }
 
     @Override
@@ -144,7 +129,7 @@ public class ShippingContainerBlock extends ItemVaultBlock {
     public void notifyMultiUpdated() {
       BlockState state = this.getBlockState();
       if (isVault(state)) { // safety
-        level.setBlock(getBlockPos(), state.setValue(ItemVaultBlock.LARGE, radius > 2), 6);
+        level.setBlock(getBlockPos(), state.setValue(ItemVaultBlock.LARGE, radius > 1), 6);
       }
       super.notifyMultiUpdated();
     }
@@ -159,48 +144,12 @@ public class ShippingContainerBlock extends ItemVaultBlock {
       super.removeController(keepContents);
     }
 
-    private void initCapability() {
-      if (itemCapability != null && itemCapability.getCapability() != null)
-        return;
+    public void initCapability() {
       if (!isController()) {
         Entity controllerBE = getControllerBE();
-        if (controllerBE == null)
-          return;
-        controllerBE.initCapability();
-        itemCapability = ICapabilityProvider.of(() -> {
-          if (controllerBE.isRemoved())
-            return null;
-          if (controllerBE.itemCapability == null)
-            return null;
-          return controllerBE.itemCapability.getCapability();
-        });
-        invId = controllerBE.invId;
-        return;
+        if (controllerBE != null)
+          invId = controllerBE.invId;
       }
-
-      boolean alongZ = ItemVaultBlock.getVaultBlockAxis(getBlockState()) == Direction.Axis.Z;
-      IItemHandlerModifiable[] invs = new IItemHandlerModifiable[length * radius * radius];
-      for (int yOffset = 0; yOffset < length; yOffset++) {
-        for (int xOffset = 0; xOffset < radius; xOffset++) {
-          for (int zOffset = 0; zOffset < radius; zOffset++) {
-            BlockPos vaultPos = alongZ ? worldPosition.offset(xOffset, zOffset, yOffset)
-                    : worldPosition.offset(yOffset, xOffset, zOffset);
-            Entity vaultAt =
-                    ConnectivityHandler.partAt(getType(), getLevel(), vaultPos);
-            invs[yOffset * radius * radius + xOffset * radius + zOffset] =
-                    vaultAt != null ? vaultAt.inventory : new ItemStackHandler();
-          }
-        }
-      }
-
-      itemCapability = ICapabilityProvider.of(new VersionedInventoryWrapper(SameSizeCombinedInvWrapper.create(invs)));
-
-      // build an identifier encompassing all component vaults
-      BlockPos farCorner = alongZ
-              ? worldPosition.offset(radius, radius, length)
-              : worldPosition.offset(length, radius, radius);
-      BoundingBox bounds = BoundingBox.fromCorners(this.worldPosition, farCorner);
-      this.invId = new InventoryIdentifier.Bounds(bounds);
     }
   }
 }

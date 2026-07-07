@@ -1,37 +1,19 @@
 package com.github.talrey.createdeco.mixin;
 
-import com.github.talrey.createdeco.CreateDecoMod;
 import com.github.talrey.createdeco.blocks.ShippingContainerBlock;
-import com.simibubi.create.content.logistics.vault.ItemVaultBlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
+import com.zurrtum.create.content.logistics.vault.ItemVaultBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-/**
- * Changes to the Shipping Container's block entity means we don't need this mixin anymore, it's already excluded from the mixins json.
- * Might be a good idea to delete it if you don't think we'll need it for anything else
- * - @Cibernet
- */
-@Deprecated()
-@Mixin(ItemVaultBlockEntity.class)
+@Mixin(BlockEntity.class)
 public class ItemVaultBlockEntityMixin {
-  @ModifyArg(
-    method = "initCapability()V",
-    at = @At(
-      value = "INVOKE",
-      target = "Lcom/simibubi/create/api/connectivity/ConnectivityHandler;partAt(Lnet/minecraft/world/level/block/entity/BlockEntityType;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/entity/BlockEntity;"
-    ),
-    index = 0
-  )
-  public BlockEntityType<?> initCapability (BlockEntityType<?> type) {
-
-    if ((Object)this instanceof ShippingContainerBlock.Entity container) {
-//      CreateDecoMod.LOGGER.info("Injected: " +
-//        ((ShippingContainerBlock)container.getBlockState().getBlock()).COLOR
-//      );
-      return ((ShippingContainerBlock)container.getBlockState().getBlock()).getBlockEntityType();
-    }
-    return type;
+  @Inject(method = "isValidBlockState", at = @At("HEAD"), cancellable = true)
+  private void createdeco$acceptShippingContainerStates(BlockState state, CallbackInfoReturnable<Boolean> cir) {
+    if ((Object)this instanceof ItemVaultBlockEntity && ShippingContainerBlock.isVault(state))
+      cir.setReturnValue(true);
   }
 }
