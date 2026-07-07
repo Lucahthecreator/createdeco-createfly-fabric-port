@@ -31,7 +31,7 @@ public class CreateRegistrate {
     private final List<ItemEntry<? extends Item>> items = new ArrayList<>();
     private final List<BlockEntry<? extends Block>> blocks = new ArrayList<>();
 
-    private CreateRegistrate(String modid) {
+    protected CreateRegistrate(String modid) {
         this.modid = modid;
     }
 

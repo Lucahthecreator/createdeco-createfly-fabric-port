@@ -1,5 +1,6 @@
 package com.github.talrey.createdeco;
 
+import com.zurrtum.create.foundation.data.CreateDecoRegistrate;
 import com.zurrtum.create.foundation.data.CreateRegistrate;
 import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
@@ -10,7 +11,7 @@ public class CreateDecoMod {
   public static final String NAME = "Create Deco";
   public static final Logger LOGGER = LoggerFactory.getLogger(NAME);
 
-  public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MOD_ID);
+  public static final CreateRegistrate REGISTRATE = new CreateDecoRegistrate(MOD_ID);
 
   public static void init() {
     ItemRegistry.init();
