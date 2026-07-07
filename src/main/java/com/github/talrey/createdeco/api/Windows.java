@@ -9,7 +9,7 @@ import com.zurrtum.create.content.decoration.palettes.WindowBlock;
 import com.zurrtum.create.client.foundation.block.connected.CTSpriteShiftEntry;
 import com.zurrtum.create.client.foundation.block.connected.GlassPaneCTBehaviour;
 import com.zurrtum.create.client.foundation.block.connected.HorizontalCTBehaviour;
-import com.zurrtum.create.foundation.data.CreateRegistrate;
+import com.zurrtum.create.foundation.data.CreateDecoRegistrate;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
@@ -38,7 +38,7 @@ import net.neoforged.neoforge.common.Tags;
 import java.util.Locale;
 import java.util.function.Supplier;
 
-import static com.zurrtum.create.foundation.data.CreateRegistrate.connectedTextures;
+import static com.zurrtum.create.foundation.data.CreateDecoRegistrate.connectedTextures;
 
 public class Windows {
   private static BlockBehaviour.Properties glassProperties(BlockBehaviour.Properties p) {
@@ -76,7 +76,7 @@ public class Windows {
                                                     Supplier<MapColor> color) {
     return CreateDecoMod.REGISTRATE.block(name.toLowerCase(Locale.ROOT).replace(" ", "_"), p -> new WindowBlock(p, translucent))
       //.onRegister(connectedTextures(() -> new HorizontalCTBehaviour(ct.get())))
-      .onRegister(CreateRegistrate.connectedTextures(() ->
+      .onRegister(CreateDecoRegistrate.connectedTextures(() ->
         new HorizontalCTBehaviour(SpriteShifts.METAL_WINDOWS.get(name.replace("_window", ""))
       )))
       .addLayer(renderType)

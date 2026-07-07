@@ -12,7 +12,7 @@ import com.zurrtum.create.content.decoration.placard.PlacardBlock;
 import com.zurrtum.create.client.content.decoration.placard.PlacardRenderer;
 import com.zurrtum.create.foundation.data.SharedProperties;
 import com.zurrtum.create.client.foundation.item.TooltipModifier;
-import com.tterrag.registrate.builders.BlockBuilder;
+import com.github.talrey.createdeco.registrate.BlockBuilder;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.core.registries.Registries;
@@ -97,8 +97,6 @@ public class BlockRegistry {
 		CreateDecoMod.LOGGER.info("Registering blocks for " + CreateDecoMod.NAME);
 
 		// Props registration
-		CreateDecoMod.REGISTRATE.defaultCreativeTab(CreativeTabs.PROPS_KEY);
-
 		ItemRegistry.METAL_TYPES.forEach(BlockRegistry::registerBars);
 		ItemRegistry.METAL_TYPES.forEach(BlockRegistry::registerFences);
 		ItemRegistry.METAL_TYPES.forEach(BlockRegistry::registerCatwalks);
@@ -114,7 +112,6 @@ public class BlockRegistry {
 		ItemRegistry.COIN_METALS.forEach(BlockRegistry::registerCoins);
 
 		// Bricks registration
-		CreateDecoMod.REGISTRATE.defaultCreativeTab(CreativeTabs.BRICKS_KEY);
 		registerBricks();
 	}
 

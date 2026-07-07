@@ -3,8 +3,8 @@ package com.github.talrey.createdeco.api;
 import com.github.talrey.createdeco.BlockStateGenerator;
 import com.github.talrey.createdeco.CreateDecoMod;
 import com.github.talrey.createdeco.blocks.CageLampBlock;
-import com.zurrtum.create.foundation.data.CreateRegistrate;
-import com.tterrag.registrate.builders.BlockBuilder;
+import com.zurrtum.create.foundation.data.CreateDecoRegistrate;
+import com.github.talrey.createdeco.registrate.BlockBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
@@ -83,7 +83,7 @@ public class CageLamps {
   }
 
   public static BlockBuilder<CageLampBlock, ?> build (
-    CreateRegistrate reg, String name, DyeColor color, Identifier cage, Identifier lampOn, Identifier lampOff
+    CreateDecoRegistrate reg, String name, DyeColor color, Identifier cage, Identifier lampOn, Identifier lampOff
   ) {
     return reg.block(color.getName().toLowerCase(Locale.ROOT) + "_" + name.toLowerCase(Locale.ROOT).replaceAll(" ", "_") + "_lamp",
         (p)-> new CageLampBlock(p, new Vector3f(0.3f, 0.3f, 0f)))

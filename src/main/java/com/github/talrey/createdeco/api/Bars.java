@@ -3,8 +3,8 @@ package com.github.talrey.createdeco.api;
 import com.github.talrey.createdeco.BlockStateGenerator;
 import com.github.talrey.createdeco.blocks.DecoBarsBlock;
 import com.zurrtum.create.AllTags;
-import com.zurrtum.create.foundation.data.CreateRegistrate;
-import com.tterrag.registrate.builders.BlockBuilder;
+import com.zurrtum.create.foundation.data.CreateDecoRegistrate;
+import com.github.talrey.createdeco.registrate.BlockBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
@@ -25,7 +25,7 @@ import java.util.function.Supplier;
 
 public class Bars {
   public static BlockBuilder<DecoBarsBlock, ?> build (
-          CreateRegistrate reg, String metal, String suffix, boolean doPost
+          CreateDecoRegistrate reg, String metal, String suffix, boolean doPost
   ) {
     String base = metal.replace(' ', '_').toLowerCase(Locale.ROOT).replaceAll(" ", "_") + "_bars";
     String suf = suffix.equals("") ? "" : "_" + suffix.replace(' ', '_').toLowerCase(Locale.ROOT);

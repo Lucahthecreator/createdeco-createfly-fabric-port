@@ -3,9 +3,9 @@ package com.github.talrey.createdeco.api;
 import com.github.talrey.createdeco.BlockStateGenerator;
 import com.github.talrey.createdeco.blocks.CoinStackBlock;
 import com.github.talrey.createdeco.items.CoinStackItem;
-import com.zurrtum.create.foundation.data.CreateRegistrate;
-import com.tterrag.registrate.builders.BlockBuilder;
-import com.tterrag.registrate.builders.ItemBuilder;
+import com.zurrtum.create.foundation.data.CreateDecoRegistrate;
+import com.github.talrey.createdeco.registrate.BlockBuilder;
+import com.github.talrey.createdeco.registrate.ItemBuilder;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.advancements.criterion.StatePropertiesPredicate;
@@ -27,7 +27,7 @@ import java.util.Locale;
 
 public class Coins {
   public static ItemBuilder<Item,?> buildCoinItem (
-    CreateRegistrate reg, NonNullSupplier<Item> coinstack, String metal
+    CreateDecoRegistrate reg, NonNullSupplier<Item> coinstack, String metal
   ) {
     String regName = metal.toLowerCase(Locale.ROOT).replaceAll(" ", "_") + "_coin";
     return reg.item(regName, Item::new)
@@ -41,7 +41,7 @@ public class Coins {
   }
 
   public static ItemBuilder<CoinStackItem,?> buildCoinStackItem (
-    CreateRegistrate reg, NonNullSupplier<Item> coin, String metal
+    CreateDecoRegistrate reg, NonNullSupplier<Item> coin, String metal
   ) {
     String regName = metal.toLowerCase(Locale.ROOT).replaceAll(" ", "_") + "_coinstack";
     return reg.item(regName, (p)-> new CoinStackItem(p, metal))
@@ -55,7 +55,7 @@ public class Coins {
   }
 
   public static BlockBuilder<CoinStackBlock,?> buildCoinStackBlock (
-    CreateRegistrate reg, NonNullSupplier<Item> material, String metal,
+    CreateDecoRegistrate reg, NonNullSupplier<Item> material, String metal,
     Identifier side, Identifier bottom, Identifier top
   ) {
     String regName = metal.toLowerCase(Locale.ROOT).replaceAll(" ", "_") + "_coinstack";

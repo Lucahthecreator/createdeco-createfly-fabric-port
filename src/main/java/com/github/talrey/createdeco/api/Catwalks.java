@@ -11,8 +11,8 @@ import com.github.talrey.createdeco.items.CatwalkBlockItem;
 import com.github.talrey.createdeco.items.CatwalkStairBlockItem;
 import com.github.talrey.createdeco.items.RailingBlockItem;
 import com.zurrtum.create.AllTags;
-import com.zurrtum.create.foundation.data.CreateRegistrate;
-import com.tterrag.registrate.builders.BlockBuilder;
+import com.zurrtum.create.foundation.data.CreateDecoRegistrate;
+import com.github.talrey.createdeco.registrate.BlockBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
@@ -43,7 +43,7 @@ import java.util.function.Supplier;
 public class Catwalks {
 
   public static BlockBuilder<CatwalkBlock,?> build (
-    CreateRegistrate reg, String metal
+    CreateDecoRegistrate reg, String metal
   ) {
     return reg.block(metal.toLowerCase(Locale.ROOT).replaceAll(" ", "_") + "_catwalk", CatwalkBlock::new)
       .properties(props->
@@ -68,13 +68,13 @@ public class Catwalks {
       .model((ctx,prov)-> BlockStateGenerator.catwalkItem(metal, ctx, prov))
       .build()
       .blockstate((ctx,prov)-> BlockStateGenerator.catwalk(reg, metal, ctx, prov))
-      .onRegister(CreateRegistrate.connectedTextures(
+      .onRegister(CreateDecoRegistrate.connectedTextures(
         new CatwalkCTBehaviour(SpriteShifts.CATWALK_TOPS.get(metal)).getSupplier()
       ));
   }
 
   public static BlockBuilder<CatwalkStairBlock,?> buildStair (
-    CreateRegistrate reg, String metal
+    CreateDecoRegistrate reg, String metal
   ) {
     String regName = metal.toLowerCase(Locale.ROOT).replaceAll(" ", "_");
     String texture = reg.getModid() + ":block/palettes/catwalks/" + regName + "_catwalk";
@@ -123,7 +123,7 @@ public class Catwalks {
   }
 
   public static BlockBuilder<CatwalkRailingBlock,?> buildRailing (
-    CreateRegistrate reg, String metal
+    CreateDecoRegistrate reg, String metal
   ) {
     String regName = metal.toLowerCase(Locale.ROOT).replaceAll(" ", "_");
     String texture = reg.getModid() + ":block/palettes/catwalks/" + regName + "_catwalk";

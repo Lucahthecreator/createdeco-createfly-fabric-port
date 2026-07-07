@@ -9,9 +9,9 @@ import com.zurrtum.create.AllBlocks;
 import com.zurrtum.create.AllItems;
 import com.zurrtum.create.AllMountedStorageTypes;
 import com.zurrtum.create.api.contraption.storage.item.MountedItemStorageType;
-import com.zurrtum.create.foundation.data.CreateRegistrate;
+import com.zurrtum.create.foundation.data.CreateDecoRegistrate;
 import com.zurrtum.create.foundation.data.SharedProperties;
-import com.tterrag.registrate.builders.BlockBuilder;
+import com.github.talrey.createdeco.registrate.BlockBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
@@ -32,12 +32,12 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-import static com.zurrtum.create.foundation.data.CreateRegistrate.connectedTextures;
+import static com.zurrtum.create.foundation.data.CreateDecoRegistrate.connectedTextures;
 import static com.zurrtum.create.foundation.data.TagGen.pickaxeOnly;
 
 public class ShippingContainers {
   public static BlockBuilder<ShippingContainerBlock,?> build (
-    CreateRegistrate reg, DyeColor color
+    CreateDecoRegistrate reg, DyeColor color
   ) {
     String regName = color.getName() + "_shipping_container";
     String visName = WordUtils.capitalizeFully(color.getName().replaceAll("_", " "));

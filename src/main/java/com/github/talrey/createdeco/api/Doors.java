@@ -2,8 +2,8 @@ package com.github.talrey.createdeco.api;
 
 import com.github.talrey.createdeco.BlockStateGenerator;
 import com.github.talrey.createdeco.CreateDecoMod;
-import com.zurrtum.create.foundation.data.CreateRegistrate;
-import com.tterrag.registrate.builders.BlockBuilder;
+import com.zurrtum.create.foundation.data.CreateDecoRegistrate;
+import com.github.talrey.createdeco.registrate.BlockBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
@@ -56,7 +56,7 @@ public class Doors {
   }
 
   public static BlockBuilder<DoorBlock,?> build (
-    CreateRegistrate reg, String metal, boolean locked
+    CreateDecoRegistrate reg, String metal, boolean locked
   ) {
     String regName = (locked ? "locked_" : "")
       + metal.toLowerCase(Locale.ROOT).replaceAll(" ", "_")
@@ -100,7 +100,7 @@ public class Doors {
   }
 
   public static BlockBuilder<TrapDoorBlock,?> buildTrapdoor (
-    CreateRegistrate reg, String metal
+    CreateDecoRegistrate reg, String metal
   ) {
     String regName = metal.toLowerCase(Locale.ROOT).replaceAll(" ", "_")
       + "_trapdoor";

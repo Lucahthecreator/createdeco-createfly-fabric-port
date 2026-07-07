@@ -1,13 +1,9 @@
 package com.zurrtum.create.foundation.data;
 
-import com.tterrag.registrate.builders.BlockBuilder;
-import com.tterrag.registrate.builders.BlockEntityBuilder;
-import com.tterrag.registrate.builders.ItemBuilder;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import com.tterrag.registrate.util.nullness.NonNullConsumer;
-import com.tterrag.registrate.util.nullness.NonNullFunction;
 import com.zurrtum.create.client.foundation.block.connected.ConnectedTextureBehaviour;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.Identifier;
@@ -15,8 +11,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -59,18 +53,6 @@ public class CreateRegistrate {
     }
 
     public void addLang(String type, Identifier id, String value) {
-    }
-
-    public <T extends Item> ItemBuilder<T, CreateRegistrate> item(String name, NonNullFunction<Item.Properties, T> factory) {
-        return new ItemBuilder<>(this, name, factory);
-    }
-
-    public <T extends Block> BlockBuilder<T, CreateRegistrate> block(String name, NonNullFunction<BlockBehaviour.Properties, T> factory) {
-        return new BlockBuilder<>(this, name, factory);
-    }
-
-    public <T extends BlockEntity> BlockEntityBuilder<T, CreateRegistrate> blockEntity(String name, BlockEntityBuilder.BlockEntityFactory<T> factory) {
-        return new BlockEntityBuilder<>(this, name, factory);
     }
 
     public Collection<? extends RegistryEntry<?, ?>> getAll(ResourceKey<? extends Registry<Item>> key) {

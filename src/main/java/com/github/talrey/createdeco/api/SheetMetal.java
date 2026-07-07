@@ -4,8 +4,8 @@ import com.github.talrey.createdeco.BlockStateGenerator;
 import com.github.talrey.createdeco.connected.SpriteShifts;
 import com.zurrtum.create.content.decoration.palettes.ConnectedPillarBlock;
 import com.zurrtum.create.client.foundation.block.connected.RotatedPillarCTBehaviour;
-import com.zurrtum.create.foundation.data.CreateRegistrate;
-import com.tterrag.registrate.builders.BlockBuilder;
+import com.zurrtum.create.foundation.data.CreateDecoRegistrate;
+import com.github.talrey.createdeco.registrate.BlockBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
@@ -21,7 +21,7 @@ import java.util.Locale;
 
 public class SheetMetal {
   public static BlockBuilder<ConnectedPillarBlock,?> buildBlock (
-      CreateRegistrate reg, String metal
+      CreateDecoRegistrate reg, String metal
   ) {
     String regName = metal.toLowerCase(Locale.ROOT).replaceAll(" ", "_") + "_sheet_metal";
 
@@ -36,7 +36,7 @@ public class SheetMetal {
         .blockstate((ctx,prov)-> BlockStateGenerator.sheetMetal(metal, ctx, prov))
         .lang(metal + " Sheet Metal")
 
-        .onRegister(CreateRegistrate.connectedTextures(() ->
+        .onRegister(CreateDecoRegistrate.connectedTextures(() ->
             new RotatedPillarCTBehaviour(SpriteShifts.SHEET_METAL_SIDES.get(metal), null)
         ));
   }
@@ -55,7 +55,7 @@ public class SheetMetal {
   }
 
 /*
-  public static ArrayList<BlockBuilder<StairBlock,?>> buildStair (CreateRegistrate reg, String color) {
+  public static ArrayList<BlockBuilder<StairBlock,?>> buildStair (CreateDecoRegistrate reg, String color) {
     String name;
     ArrayList<BlockBuilder<StairBlock, ?>> ret = new ArrayList<>();
 

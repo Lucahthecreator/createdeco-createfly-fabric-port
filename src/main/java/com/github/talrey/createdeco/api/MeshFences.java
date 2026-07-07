@@ -2,8 +2,8 @@ package com.github.talrey.createdeco.api;
 
 import com.github.talrey.createdeco.BlockStateGenerator;
 import com.github.talrey.createdeco.blocks.MeshFenceBlock;
-import com.zurrtum.create.foundation.data.CreateRegistrate;
-import com.tterrag.registrate.builders.BlockBuilder;
+import com.zurrtum.create.foundation.data.CreateDecoRegistrate;
+import com.github.talrey.createdeco.registrate.BlockBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
@@ -35,7 +35,7 @@ public class MeshFences {
         .save(prov);
   }
 
-  public static BlockBuilder<MeshFenceBlock,?> build (CreateRegistrate reg, String metal) {
+  public static BlockBuilder<MeshFenceBlock,?> build (CreateDecoRegistrate reg, String metal) {
     return reg.block(metal.toLowerCase(Locale.ROOT).replaceAll(" ", "_") + "_mesh_fence", MeshFenceBlock::new)
       .properties(props-> props.strength(5, 6).requiresCorrectToolForDrops()
         .sound(SoundType.CHAIN)

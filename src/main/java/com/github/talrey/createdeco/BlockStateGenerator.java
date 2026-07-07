@@ -3,7 +3,7 @@ package com.github.talrey.createdeco;
 import com.github.talrey.createdeco.blocks.DecalBlock;
 import com.zurrtum.create.content.decoration.palettes.ConnectedGlassPaneBlock;
 import com.zurrtum.create.content.decoration.palettes.ConnectedPillarBlock;
-import com.zurrtum.create.foundation.data.CreateRegistrate;
+import com.zurrtum.create.foundation.data.CreateDecoRegistrate;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
 import com.tterrag.registrate.providers.RegistrateItemModelProvider;
@@ -24,18 +24,18 @@ public class BlockStateGenerator {
     public static void barItem(String base, String suf, Identifier bartex, DataGenContext<Item, ?> ctx, RegistrateItemModelProvider prov) {}
     public static void fence(String metal, DataGenContext<Block, ?> ctx, RegistrateBlockstateProvider prov) {}
     public static void cageLamp(Identifier cage, Identifier lampOn, Identifier lampOff, DataGenContext<Block, ?> ctx, RegistrateBlockstateProvider prov) {}
-    public static void catwalk(CreateRegistrate reg, String metal, DataGenContext<Block, ?> ctx, RegistrateBlockstateProvider prov) {}
+    public static void catwalk(CreateDecoRegistrate reg, String metal, DataGenContext<Block, ?> ctx, RegistrateBlockstateProvider prov) {}
     public static void catwalkItem(String metal, DataGenContext<Item, ?> ctx, RegistrateItemModelProvider prov) {}
     public static void catwalkStair(String texture, DataGenContext<Block, ?> ctx, RegistrateBlockstateProvider prov) {}
-    public static void catwalkRailing(CreateRegistrate reg, String metal, DataGenContext<Block, ?> ctx, RegistrateBlockstateProvider prov) {}
-    public static void door(CreateRegistrate reg, String metal, boolean locked, DataGenContext<Block, DoorBlock> ctx, RegistrateBlockstateProvider prov) {}
-    public static void doorItem(CreateRegistrate reg, String metal, DataGenContext<Item, ?> ctx, RegistrateItemModelProvider prov) {}
-    public static void hull(CreateRegistrate reg, String metal, DataGenContext<Block, ?> ctx, RegistrateBlockstateProvider prov) {}
-    public static void support(CreateRegistrate reg, String metal, DataGenContext<Block, ?> ctx, RegistrateBlockstateProvider prov) {}
-    public static void supportWedge(CreateRegistrate reg, String metal, DataGenContext<Block, ?> ctx, RegistrateBlockstateProvider prov) {}
-    public static void trapdoorItem(CreateRegistrate reg, String metal, DataGenContext<Item, ?> ctx, RegistrateItemModelProvider prov) {}
-    public static void placard(CreateRegistrate reg, DyeColor color, DataGenContext<Block, ?> ctx, RegistrateBlockstateProvider prov) {}
-    public static void shippingContainer(CreateRegistrate reg, DyeColor color, DataGenContext<Block, ?> ctx, RegistrateBlockstateProvider prov) {}
+    public static void catwalkRailing(CreateDecoRegistrate reg, String metal, DataGenContext<Block, ?> ctx, RegistrateBlockstateProvider prov) {}
+    public static void door(CreateDecoRegistrate reg, String metal, boolean locked, DataGenContext<Block, DoorBlock> ctx, RegistrateBlockstateProvider prov) {}
+    public static void doorItem(CreateDecoRegistrate reg, String metal, DataGenContext<Item, ?> ctx, RegistrateItemModelProvider prov) {}
+    public static void hull(CreateDecoRegistrate reg, String metal, DataGenContext<Block, ?> ctx, RegistrateBlockstateProvider prov) {}
+    public static void support(CreateDecoRegistrate reg, String metal, DataGenContext<Block, ?> ctx, RegistrateBlockstateProvider prov) {}
+    public static void supportWedge(CreateDecoRegistrate reg, String metal, DataGenContext<Block, ?> ctx, RegistrateBlockstateProvider prov) {}
+    public static void trapdoorItem(CreateDecoRegistrate reg, String metal, DataGenContext<Item, ?> ctx, RegistrateItemModelProvider prov) {}
+    public static void placard(CreateDecoRegistrate reg, DyeColor color, DataGenContext<Block, ?> ctx, RegistrateBlockstateProvider prov) {}
+    public static void shippingContainer(CreateDecoRegistrate reg, DyeColor color, DataGenContext<Block, ?> ctx, RegistrateBlockstateProvider prov) {}
     public static void coinstackBlock(Identifier side, Identifier bottom, Identifier top, DataGenContext<Block, ?> ctx, RegistrateBlockstateProvider prov) {}
     public static void brick(DataGenContext<Block, ?> ctx, RegistrateBlockstateProvider prov, String color) {}
     public static void brickStair(DataGenContext<Block, StairBlock> ctx, RegistrateBlockstateProvider prov, String color) {}
@@ -46,8 +46,8 @@ public class BlockStateGenerator {
         return (ctx, prov) -> {};
     }
     public static void ladder(DataGenContext<Block, ?> ctx, RegistrateBlockstateProvider prov, String regName) {}
-    public static void facade(CreateRegistrate reg, String metal, DataGenContext<Block, ?> ctx, RegistrateBlockstateProvider prov) {}
-    public static void decal(CreateRegistrate reg, String prefix, DataGenContext<Block, DecalBlock> ctx, RegistrateBlockstateProvider prov) {}
+    public static void facade(CreateDecoRegistrate reg, String metal, DataGenContext<Block, ?> ctx, RegistrateBlockstateProvider prov) {}
+    public static void decal(CreateDecoRegistrate reg, String prefix, DataGenContext<Block, DecalBlock> ctx, RegistrateBlockstateProvider prov) {}
     public static void brickWallItem(DataGenContext<Item, BlockItem> ctx, RegistrateItemModelProvider prov, String color) {}
     public static void sheetMetal(String metal, DataGenContext<Block, ConnectedPillarBlock> ctx, RegistrateBlockstateProvider prov) {}
 }

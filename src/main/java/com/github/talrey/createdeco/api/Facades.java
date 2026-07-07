@@ -2,8 +2,8 @@ package com.github.talrey.createdeco.api;
 
 import com.github.talrey.createdeco.BlockStateGenerator;
 import com.github.talrey.createdeco.blocks.FacadeBlock;
-import com.zurrtum.create.foundation.data.CreateRegistrate;
-import com.tterrag.registrate.builders.BlockBuilder;
+import com.zurrtum.create.foundation.data.CreateDecoRegistrate;
+import com.github.talrey.createdeco.registrate.BlockBuilder;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.SoundType;
@@ -12,7 +12,7 @@ import java.util.Locale;
 
 public class Facades {
   public static BlockBuilder<FacadeBlock,?> build (
-    CreateRegistrate reg, String metal
+    CreateDecoRegistrate reg, String metal
   ) {
     String regName = metal.toLowerCase(Locale.ROOT).replaceAll(" ", "_") + "_facade";
 

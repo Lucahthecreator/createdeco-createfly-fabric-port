@@ -4,8 +4,8 @@ import com.github.talrey.createdeco.BlockRegistry;
 import com.github.talrey.createdeco.BlockStateGenerator;
 import com.github.talrey.createdeco.CreateDecoMod;
 import com.zurrtum.create.content.decoration.palettes.AllPaletteStoneTypes;
-import com.zurrtum.create.foundation.data.CreateRegistrate;
-import com.tterrag.registrate.builders.BlockBuilder;
+import com.zurrtum.create.foundation.data.CreateDecoRegistrate;
+import com.github.talrey.createdeco.registrate.BlockBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.DataIngredient;
@@ -52,7 +52,7 @@ public class Bricks {
     put("umber", AllPaletteStoneTypes.SCORIA);
   }};
 
-  public static ArrayList<BlockBuilder<Block,?>> buildBlock (CreateRegistrate reg, String color) {
+  public static ArrayList<BlockBuilder<Block,?>> buildBlock (CreateDecoRegistrate reg, String color) {
     String name;
     ArrayList<BlockBuilder<Block,?>> ret = new ArrayList<>();
     for (String prefix : TYPES) {
@@ -89,7 +89,7 @@ public class Bricks {
     return ret;
   }
 
-  public static ArrayList<BlockBuilder<StairBlock,?>> buildStair (CreateRegistrate reg, String color) {
+  public static ArrayList<BlockBuilder<StairBlock,?>> buildStair (CreateDecoRegistrate reg, String color) {
     String name;
     ArrayList<BlockBuilder<StairBlock, ?>> ret = new ArrayList<>();
 
@@ -136,7 +136,7 @@ public class Bricks {
     return ret;
   }
 
-  public static ArrayList<BlockBuilder<SlabBlock,?>> buildSlab (CreateRegistrate reg, String color) {
+  public static ArrayList<BlockBuilder<SlabBlock,?>> buildSlab (CreateDecoRegistrate reg, String color) {
     String name;
     ArrayList<BlockBuilder<SlabBlock, ?>> ret = new ArrayList<>();
 
@@ -195,7 +195,7 @@ public class Bricks {
     }
     return ret;
   }
-  public static ArrayList<BlockBuilder<WallBlock,?>> buildWall (CreateRegistrate reg, String color) {
+  public static ArrayList<BlockBuilder<WallBlock,?>> buildWall (CreateDecoRegistrate reg, String color) {
     String name;
     ArrayList<BlockBuilder<WallBlock, ?>> ret = new ArrayList<>();
 

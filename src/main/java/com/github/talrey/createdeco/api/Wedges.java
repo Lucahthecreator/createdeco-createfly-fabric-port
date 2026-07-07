@@ -2,8 +2,8 @@ package com.github.talrey.createdeco.api;
 
 import com.github.talrey.createdeco.BlockStateGenerator;
 import com.github.talrey.createdeco.blocks.SupportWedgeBlock;
-import com.zurrtum.create.foundation.data.CreateRegistrate;
-import com.tterrag.registrate.builders.BlockBuilder;
+import com.zurrtum.create.foundation.data.CreateDecoRegistrate;
+import com.github.talrey.createdeco.registrate.BlockBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
@@ -19,7 +19,7 @@ import java.util.Locale;
 
 public class Wedges {
   public static BlockBuilder<SupportWedgeBlock,?> build (
-    CreateRegistrate reg, String metal
+    CreateDecoRegistrate reg, String metal
   ) {
     String regName = metal.toLowerCase(Locale.ROOT).replaceAll(" ", "_") + "_support_wedge";
 

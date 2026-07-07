@@ -3,8 +3,8 @@ package com.github.talrey.createdeco.api;
 import com.github.talrey.createdeco.BlockStateGenerator;
 import com.github.talrey.createdeco.blocks.DecalBlock;
 import com.zurrtum.create.AllItems;
-import com.zurrtum.create.foundation.data.CreateRegistrate;
-import com.tterrag.registrate.builders.BlockBuilder;
+import com.zurrtum.create.foundation.data.CreateDecoRegistrate;
+import com.github.talrey.createdeco.registrate.BlockBuilder;
 import com.tterrag.registrate.providers.DataGenContext;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
@@ -35,7 +35,7 @@ public class Decals {
 
   );
 
-  public static ArrayList<BlockBuilder<DecalBlock,?>> build (CreateRegistrate reg) {
+  public static ArrayList<BlockBuilder<DecalBlock,?>> build (CreateDecoRegistrate reg) {
     String name;
     ArrayList<BlockBuilder<DecalBlock,?>> ret = new ArrayList<>();
     for (String prefix : TYPES) {
